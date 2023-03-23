@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tone Generator Test</title>
+</head>
+<body>
+    <h1>Tone Generator Test</h1>
+    <video id="video" width="640" height="360" autoplay muted>
+        <source src="videos/sample_video.mp4" type="video/mp4">
+    </video>
+    <script>
+// create an audio context
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+// define variables to store tone information
+var toneStartTime = 0;
+var toneFrequency = 0;
+
+// function to play a tone of a specified frequency and duration
+function playTone(frequency, duration) {
+  // set tone start time and frequency
+  toneStartTime = new Date().getTime();
+  toneFrequency = frequency;
+
+  var oscillator = audioCtx.createOscillator();
+  oscillator.type = 'sine';
+  oscillator.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+  oscillator.connect(audioCtx.destination);
+  oscillator.start();
+  oscillator.stop(audioCtx.currentTime + duration / 1000);
+}
+
+// play the tone along with the video
+var video = document.getElementById('video');
+video.addEventListener('play', function() {
+  var intervalID = setInterval(function() {
+    var random = Math.random();
+    if (random < 0.5) {
+        playTone(440, 300);
+    } else {
+        playTone(540, 300);
+    }
+  }, 1000);
+
+  // function to handle keydown events
+  function keyDownHandler(event) {
+    // check if F or J key is pressed
+    if (event.key === 'f' || event.key === 'F' || event.key === 'j' || event.key === 'J') {
+      var response = {
+        key: event.key.toLowerCase(),
+        time: new Date().getTime(),
+        toneTime: toneStartTime,
+        toneFrequency: toneFrequency
+      };
+      console.log(response);
+    }
+  }
+
+  // add keydown event listener to document
+  document.addEventListener('keydown', keyDownHandler);
+
+  video.addEventListener('ended', function() {
+    clearInterval(intervalID);
+  });
+});
+
+</script>
+</body>
+</html>
