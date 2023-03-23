@@ -1,0 +1,777 @@
+<!-- This is an online experiment where participants watch videos and press 
+the spacebar when they detect an event boundary within multiple violation 
+of expectation videos. This will include a welcome screen and example screens, 
+followed by training video trials, main video trials and attention check tasks. -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <script src="probe-generator.js"></script>
+</head>
+<body>
+<!-- Generate screen and screenText-->
+    <div id="screen">
+        <div id="screenText">
+            
+            <!------------------------>
+            <!---- Welcome Screen ---->
+            <!------------------------>
+ 
+            <div id="welcome-screen" style="display: block;">
+                <h1>Welcome to the experiment!</h1>
+                <p>Press the spacebar to continue.</p>
+            </div>
+
+            <script>
+
+            // Spacebar press moes to example-1-screen
+            function welcomeScreenHandler(event) {
+                if (event.code === "Space") {
+                    document.getElementById("welcome-screen").style.display = "none";
+                    document.getElementById("example-1-screen").style.display = "block";
+                    document.getElementById("example-1-video").style.display = "none";
+                    document.getElementById("example-continue").style.display = "none";
+                    document.removeEventListener('keydown', welcomeScreenHandler);
+                    document.addEventListener('keydown', example1ScreenHandler);
+                }
+            }
+
+            // welcome screen event listener                              
+            document.addEventListener('keydown', welcomeScreenHandler);
+            </script>
+
+            <!-------------------------->
+            <!---- Example Screen 1 ---->
+            <!-------------------------->
+
+            <div id="example-1-screen" style="display: none;">
+                <div>
+                    <h1> Example 1 </h1>
+                    <p> Watch the following movie </p>
+                    <p> Press the spacebar to continue </p>
+                </div>
+                <div>
+                    <video id="example-1-video" width="720" height="480" style="display:none;">
+                        <source src="../videos/sample_video.mp4" type="video/mp4">
+                    </video> 
+                    <p id="example-continue" style="display: none;"> 
+                        Press the spacebar to continue.
+                    </p>
+                </div>
+            </div>
+
+            <script>
+                // spacebar moves to example-1-video
+                function example1ScreenHandler(event) {
+                    const example1Screen = document.getElementById("example-1-screen");
+                    const example1Video = document.getElementById("example-1-video");
+                    if (event.code === "Space" && example1Screen.style.display === 'block') {
+                        example1Screen.style.display = 'none';
+                        example1Video.style.display = 'block';
+                        example1Video.play();
+                    }
+                };
+                
+                // example-continue text appears below video when finished
+                var video = document.getElementById("example-1-video");
+                video.onended = function(e) {
+                    document.getElementById("example-continue").style.display = "block";
+                    document.addEventListener('keydown', example1ContinueHandler);
+                };
+
+                function example1ContinueHandler(event) {
+                    const example1Screen = document.getElementById("example-1-screen");
+                    const example1Continue = document.getElementById("example-continue");
+                    if (event.code === "Space" && example1Continue.style.display === 'block') {
+                        example1Screen.style.display = 'none';
+                        document.getElementById('example-2-screen').style.display = 'block';
+                        document.removeEventListener('keydown', example1ContinueHandler);
+                        document.addEventListener('keydown', example2ScreenHandler);
+                    }
+                };
+            </script>
+
+            <!-------------------------->
+            <!---- Example Screen 2 ---->
+            <!-------------------------->
+
+            <div id="example-2-screen" style="display: none;">
+                <div>
+                    <h1> Example 2 </h1>
+                    <p> Watch the following movie </p>
+                    <p> Press the spacebar to continue </p>
+                </div>
+                <div>
+                    <video id="example-2-video-1" width="720" height="480" style="display: none;">
+                        <source src="../videos/sample_video.mp4" type="video/mp4">
+                    </video> 
+                    <p id = "example-2-continue-1" style="display: none;"> 
+                        Press the spacebar to continue.
+                    </p>
+                </div>
+                <div>
+                    <video id="example-2-video-2" width="720" height="480" style="display: none;">
+                        <source src="../videos/sample_video.mp4" type="video/mp4">
+                    </video> 
+                    <p id = "example-2-continue-2" style="display: none;"> 
+                        Press the spacebar to continue.
+                    </p>
+                </div>
+                <!-- Now you try -->
+                <div>
+                    <video id="example-2-video-3" width="720" height="480" style="display: none;">
+                        <source src="../videos/sample_video.mp4" type="video/mp4">
+                    </video> 
+                    <p id = "example-2-continue-3" style="display: none;"> 
+                        Press the spacebar to continue.
+                    </p>
+                </div>
+
+            </div>
+
+            <script>
+            // spacebar moves to example-2-video-1
+            document.addEventListener('keydown', example2ScreenHandler);
+            function example2ScreenHandler(event) {
+                const example2Screen = document.getElementById("example-2-screen");
+                const example2Video1 = document.getElementById("example-2-video-1");
+                if (event.code === "Space" && example2Screen.style.display === 'block') {
+                    example2Video1.style.display = 'block';
+                    document.getElementById('example-2-video-1').play();
+                    document.removeEventListener('keydown', example2ScreenHandler);
+                }
+            }
+
+            // example-2-continue-1 text appears below video when video ends
+            var video = document.getElementById("example-2-video-1");
+            video.onended = function(e) {
+                document.getElementById("example-2-continue-1").style.display = "block";
+                document.addEventListener('keydown', example2Continue1Handler);
+            };
+
+            function example2Continue1Handler(event) {
+                const example2Screen = document.getElementById("example-2-screen");
+                const example2Continue1 = document.getElementById("example-2-continue-1");
+                if (event.code === "Space" && example2Continue1.style.display === 'block') {
+                    example2Continue1.style.display = 'none';
+                    document.getElementById('example-2-video-2').style.display = 'block';
+                    document.getElementById('example-2-video-2').play();
+                    document.removeEventListener('keydown', example2Continue1Handler);
+                }
+            };
+
+            // example-2-continue-2 text appears below video when video ends
+            var video = document.getElementById("example-2-video-2");
+            video.onended = function(e) {
+                document.getElementById("example-2-continue-2").style.display = "block";
+                document.addEventListener('keydown', example2Continue2Handler);
+            };
+
+            function example2Continue2Handler(event) {
+                const example2Screen = document.getElementById("example-2-screen");
+                const example2Continue2 = document.getElementById("example-2-continue-2");
+                if (event.code === "Space" && example2Continue2.style.display === 'block') {
+                    example2Continue2.style.display = 'none';
+                    document.getElementById('example-2-video-3').style.display = 'block';
+                    document.getElementById('example-2-video-3').play();
+                    document.removeEventListener('keydown', example2Continue2Handler);
+                }
+            };
+
+            // example-2-continue-3 text appears below video when video ends
+            var video = document.getElementById("example-2-video-3");
+            video.onended = function(e) {
+                document.getElementById("example-2-continue-3").style.display = "block";
+                document.addEventListener('keydown', example2Continue3Handler);
+            };
+            
+            // spacebar moves to training screen
+            function example2Continue3Handler(event) {
+                const example2Screen = document.getElementById("example-2-screen");
+                const example2Continue3 = document.getElementById("example-2-continue-3");
+                if (event.code === "Space" && example2Continue3.style.display === 'block') {
+                    example2Continue3.style.display = 'none';
+                    example2Screen.style.display = 'none';
+                    document.getElementById('trial-1-screen').style.display = 'block';
+                    document.removeEventListener('keydown', example2Continue3Handler);
+                }
+            };
+
+        </script>   
+
+            <!--------------------------->
+            <!------- Main Trials ------->
+            <!--------------------------->
+            
+                <!-- Trial 1 -->
+
+                <div id="trial-1-screen" style="display: none;">
+                    <!-- Video Screen-->
+                    <div id="video-1-screen" style ="position:relative; width:960px; height:540px">
+                        <video id="video1" width="960" height="540" autoplay muted>
+                            <source src="../videos/sample_video.mp4" type="video/mp4">
+                        </video>
+                        <canvas id="canvas-1" width="960" height="540" class="canvas"></canvas>
+                    </div>
+                    <!-- Progress Screen -->
+                    <div id="progress-1-screen" style="display: none;">
+                        <h1>Progress</h1>
+                        <!-- displays a progress bar -->
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p>Press the spacebar to continue.</p>
+                    </div>
+                </div>
+
+                <script>
+                // Call runTrialWithProbes when the page has fully loaded
+                window.addEventListener('load', function () {
+                    runTrialWithProbes(1, 'canvas-1', 'video1');
+                });
+
+                // ended video moves to progress screen
+                var video = document.getElementById("video1");
+                video.addEventListener('ended', function(e) {
+                    document.getElementById("progress-1-screen").style.display = "block";
+                    document.getElementById("video-1-screen").style.display = "none";
+                    document.addEventListener('keydown', startTrial1Handler);
+                });
+                
+                // spacebar moves to trial 2
+                function startTrial1Handler(event) {
+                    const trial1Screen = document.getElementById("trial-1-screen");
+                    const progress1Screen = document.getElementById("progress-1-screen");
+                    if (event.code === "Space" && progress1Screen.style.display === 'block') {
+                        progress1Screen.style.display = 'none';
+                        trial1Screen.style.display = 'none';
+                        document.getElementById('trial-2-screen').style.display = 'block';
+                        document.removeEventListener('keydown', startTrial1Handler);
+                        runTrialWithProbes(2, 'canvas-2', 'video2');
+                    }
+                };
+
+                </script>
+
+                <!-- Trial 2 -->
+                
+                <div id="trial-2-screen" style="display: none;">
+                    <!-- Video Screen-->
+                    <div id="video-2-screen" style ="position:relative; width:960px; height:540px">
+                        <video id="video2" width="960" height="540" autoplay muted>
+                            <source src="../videos/sample_video.mp4" type="video/mp4">
+                        </video>
+                        <canvas id="canvas-2" width="960" height="540" class="canvas"></canvas>
+                    </div>
+                    <!-- Progress Screen -->
+                    <div id="progress-2-screen" style="display:none;">
+                        <h1>Progress</h1>
+                        <!-- displays a progress bar -->
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p>Press the spacebar to continue.</p>
+                    </div>
+                </div>
+
+                <script>
+                // ended video moves to progress screen
+                var video = document.getElementById("video2");
+                video.addEventListener('ended', function(e) {
+                    document.getElementById("progress-2-screen").style.display = "block";
+                    document.getElementById("video-2-screen").style.display = "none";
+                    document.addEventListener('keydown', startTrial2Handler);
+                });
+
+                // spacebar moves to trial 3
+                function startTrial2Handler(event) {
+                    const trial2Screen = document.getElementById("trial-2-screen");
+                    const progress2Screen = document.getElementById("progress-2-screen");
+                    if (event.code === "Space" && progress2Screen.style.display === 'block') {
+                        progress2Screen.style.display = 'none';
+                        trial2Screen.style.display = 'none';
+                        document.getElementById('trial-3-screen').style.display = 'block';
+                        document.removeEventListener('keydown', startTrial2Handler);
+                        runTrialWithProbes(3, 'canvas-3', 'video3');
+                    }
+                };
+                
+                </script>
+            
+                <!-- Trial 3 -->
+                
+                <div id="trial-3-screen" style="display: none;">
+                    <!-- Video Screen-->
+                    <div id="video-3-screen" style ="position:relative; width:960px; height:540px">
+                        <video id="video3" width="960" height="540" autoplay muted>
+                            <source src="../videos/sample_video.mp4" type="video/mp4">
+                        </video>
+                        <canvas id="canvas-3" width="960" height="540" class="canvas"></canvas>
+                    </div>
+                    <!-- Progress Screen -->
+                    <div id="progress-3-screen" style="display:none;"></div>
+                        <h1>Progress</h1>
+                        <!-- displays a progress bar -->
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p>Press the spacebar to continue.</p>
+                    </div>
+                </div>
+
+                <script>
+                // ended video moves to progress screen
+                var video = document.getElementById("video3");
+                video.addEventListener('ended', function(e) {
+                    document.getElementById("progress-3-screen").style.display = "block";
+                    document.getElementById("video-3-screen").style.display = "none";
+                    document.addEventListener('keydown', startTrial3Handler);
+                });
+
+                // spacebar moves to trial 4
+                function startTrial3Handler(event) {
+                    const trial3Screen = document.getElementById("trial-3-screen");
+                    const progress3Screen = document.getElementById("progress-3-screen");
+                    if (event.code === "Space" && progress3Screen.style.display === 'block') {
+                        progress3Screen.style.display = 'none';
+                        trial3Screen.style.display = 'none';
+                        document.getElementById('trial-4-screen').style.display = 'block';
+                        document.removeEventListener('keydown', startTrial3Handler);
+                        runTrialWithProbes(4, 'canvas-4', 'video4');
+                    }
+                };
+                </script>
+
+                <!-- Trial 4 -->
+
+                <div id="trial-4-screen" style="display: none;">
+                    <!-- Video Screen-->
+                    <div id="video-4-screen" style ="position:relative; width:960px; height:540px">
+                        <video id="video4" width="960" height="540" autoplay muted>
+                            <source src="../videos/sample_video.mp4" type="video/mp4">
+                        </video>
+                        <canvas id="canvas-4" width="960" height="540" class="canvas"></canvas>
+                    </div>
+                    <!-- Progress Screen -->
+                    <div id="progress-4-screen" style="display:none;">
+                        <h1>Progress</h1>
+                        <!-- displays a progress bar -->
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p>Press the spacebar to continue.</p>
+                    </div>
+                </div>
+
+                <script>
+                // Call runTrialWithProbes when the page has fully loaded
+                window.addEventListener('load', function () {
+                    runTrialWithProbes(4, 'video4');
+                });
+
+                // ended video moves to progress screen
+                var video = document.getElementById("video4");
+                video.addEventListener('ended', function(e) {
+                    document.getElementById("progress-4-screen").style.display = "block";
+                    document.getElementById("video-4-screen").style.display = "none";
+                    document.addEventListener('keydown', startTrial4Handler);
+                });
+
+                // spacebar moves to attention-check-1
+                function startTrial4Handler(event) {
+                    const trial4Screen = document.getElementById("trial-4-screen");
+                    const progress4Screen = document.getElementById("progress-4-screen");
+                    if (event.code === "Space" && progress4Screen.style.display === 'block') {
+                        progress4Screen.style.display = 'none';
+                        trial4Screen.style.display = 'none';
+                        document.getElementById('attention-check-1-screen').style.display = 'block';
+                        document.removeEventListener('keydown', startTrial4Handler);
+                    }
+                };
+               
+                </script>
+
+                <!-- Attention Check 1 -->
+
+                <div id="attention-check-1-screen" style="display: none;">
+                    <!-- Instructions Screen -->
+                    <div id="attention-1-instructions-screen" style="display: block;">
+                        <h1>Instructions</h1>
+                        <p>Press the spacebar to continue.</p>
+                    </div>
+                    <!-- Bouncing Balls Screen -->
+                    <div id="attention-1-balls-screen" style="display: none;">
+                    </div>
+                    <!-- Progress Screen -->
+                    <div id="attention-1-progress-screen" style="display: none;">
+                        <h1>Progress</h1>
+                        <!-- displays a progress bar -->
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p>Press the spacebar to continue.</p>
+                    </div>
+                </div>
+
+                <script>
+                    // Move from instructions screen to bouncing balls screen
+    document.addEventListener('keydown', attentionCheck1ScreenHandler);
+
+    function attentionCheck1ScreenHandler(event) {
+        const attentionCheck1Screen = document.getElementById("attention-check-1-screen");
+        const attention1InstructionsScreen = document.getElementById("attention-1-instructions-screen");
+        if (event.code === "Space" && attention1InstructionsScreen.style.display === 'block') {
+            attention1InstructionsScreen.style.display = 'none';
+            document.getElementById('attention-1-balls-screen').style.display = 'block';
+            document.removeEventListener('keydown', attentionCheck1ScreenHandler);
+            document.addEventListener('keydown', attentionCheck1BallsHandler);
+        }
+    }
+
+    function attentionCheck1BallsHandler(event) {
+        if (event.code === "Space") {
+            // Start the animation when the spacebar is pressed on the instructions screen
+            animateBouncingBalls(function(keyPresses, collisionTimes) {
+                console.log("Keypresses:", keyPresses);
+                console.log("Collision times:", collisionTimes);
+                // Display the progress screen after the animation ends
+                document.getElementById('attention-1-balls-screen').style.display = 'none';
+                document.getElementById('attention-1-progress-screen').style.display = 'block';
+            });
+
+            // Remove the event listener after starting the animation
+            document.removeEventListener('keydown', attentionCheck1BallsHandler);
+        }
+    }
+                </script>
+
+                <!-- Trial 5 -->
+
+                <!-- Trial 6 -->
+
+                <!-- Trial 7 -->     
+                
+                <!-- Trial 8 -->
+
+                <!-- Trial 9 -->
+
+                <!-- Attention Check 2 -->
+
+                <div id="attention-check-2-screen" style="display: none;">
+                    <h1>Attention Check 2</h1>
+                    <p>Press the spacebar to continue.</p>
+                    <!-- Instructions Screen -->
+                    <div id="instructions-screen">
+                        <h1>Instructions</h1>
+                        <p>Press the spacebar to continue.</p>
+                    </div>
+                    <!-- Bouncing Balls Screen -->
+                    <div id="bouncing-balls-screen">
+                        <h1>Bouncing Balls</h1>
+                        <p>Press the spacebar to continue.</p>
+                    </div>
+                    <!-- Progress Screen -->
+                    <div id="progress-screen">
+                        <h1>Progress</h1>
+                        <p>Press the spacebar to continue.</p>
+                    </div>
+                </div>
+
+                <!-- Trial 10 -->
+
+                <!-- Trial 11 -->
+               
+                <!-- Trial 12 -->
+
+              
+    </div>
+
+               <!-------------------------------->
+            <!--- Main Trials Data Manager --->
+            <!-------------------------------->
+            
+            <script>
+                // Data Manager - stores data from each trial in an array - collects time of 'F or J' press, whether correct (F for 550hz, J for 700hz), time within video, last presented tone frequency, current video ID and current trial number
+                var dataManager = function() {
+                    var data = [];
+                    var trialNumber = 1;
+                    var videoID = 1;
+                    var toneFrequency = 550;
+                    var timeWithinVideo = 0;
+                    var timeOfPress = 0;
+                    var correct = false;
+                    var addData = function() {
+                        data.push({
+                            trialNumber: trialNumber,
+                            videoID: videoID,
+                            toneFrequency: toneFrequency,
+                            timeWithinVideo: timeWithinVideo,
+                            timeOfPress: timeOfPress,
+                            correct: correct
+                        });
+                    };
+                    var getTrialNumber = function() {
+                        return trialNumber;
+                    };
+                    var getVideoID = function() {
+                        return videoID;
+                    };
+                    var getToneFrequency = function() {
+                        return toneFrequency;
+                    };
+                    var getTimeWithinVideo = function() {
+                        return timeWithinVideo;
+                    };
+                    var getTimeOfPress = function() {
+                        return timeOfPress;
+                    };
+                    var getCorrect = function() {
+                        return correct;
+                    };
+                    var setTrialNumber = function(newTrialNumber) {
+                        trialNumber = newTrialNumber;
+                    };
+                    var setVideoID = function(newVideoID) {
+                        videoID = newVideoID;
+                    };
+                    var setToneFrequency = function(newToneFrequency) {
+                        toneFrequency = newToneFrequency;
+                    };
+                    var setTimeWithinVideo = function(newTimeWithinVideo) {
+                        timeWithinVideo = newTimeWithinVideo;
+                    };
+                    var setTimeOfPress = function(newTimeOfPress) {
+                        timeOfPress = newTimeOfPress;
+                    };
+                    var setCorrect = function(newCorrect) {
+                        correct = newCorrect;
+                    };
+                    return {
+                        addData: addData,
+                        getTrialNumber: getTrialNumber,
+                        getVideoID: getVideoID,
+                        getToneFrequency: getToneFrequency,
+                        getTimeWithinVideo: getTimeWithinVideo,
+                        getTimeOfPress: getTimeOfPress,
+                        getCorrect: getCorrect,
+                        setTrialNumber: setTrialNumber,
+                        setVideoID: setVideoID,
+                        setToneFrequency: setToneFrequency,
+                        setTimeWithinVideo: setTimeWithinVideo,
+                        setTimeOfPress: setTimeOfPress,
+                        setCorrect: setCorrect
+                    };
+                };
+                </script>
+    
+                <!-------------------------------->
+                <!----- Attention check code ----->
+                <!-------------------------------->
+                
+                <script>   
+    // BALL ANIMATIONS CODE //
+    function animateBouncingBalls(callback) {
+        const canvasContainer = document.querySelector('#canvas-container');
+        const canvas = document.createElement('canvas');
+        canvas.id = 'attentionCheckCanvas';
+        canvas.width = 800;
+        canvas.height = 600;
+        canvasContainer.appendChild(canvas);
+    
+    // Event Listeners
+    let keyPresses = [];
+        function keyDownHandler(event) {
+            if (event.key === 'f' || event.key === 'F' || event.key === 'j' || event.key === 'J') {
+                const keyPress = { key: event.key.toLowerCase(), time: new Date().getTime() };
+                keyPresses.push(keyPress);
+                console.log('Keypress:', keyPress); // Log the keypress to the console
+            }
+        }
+    
+    document.addEventListener('keydown', keyDownHandler);
+    
+    let collisionTimes = {
+        ballWall: [],
+        ballBall: [],
+    };
+    
+    function task1() {
+        for (let i = 0; i < balls.length; i++) {
+            const ball = balls[i];
+    
+            // Ball-wall collision
+            if (
+                ball.x - ball.radius <= 0 ||
+                ball.x + ball.radius >= canvas.width ||
+                ball.y - ball.radius <= 0 ||
+                ball.y + ball.radius >= canvas.height
+            ) {
+                const ballWallCollisionTime = new Date().getTime();
+                collisionTimes.ballWall.push(ballWallCollisionTime);
+                console.log('Ball-wall collision:', ballWallCollisionTime); // Log the collision time to the console
+            }
+    
+            // Ball-ball collision
+            for (let j = i + 1; j < balls.length; j++) {
+                if (detectCollision(ball, balls[j])) {
+                    const ballBallCollisionTime = new Date().getTime();
+                    collisionTimes.ballBall.push(ballBallCollisionTime);
+                    console.log('Ball-ball collision:', ballBallCollisionTime); // Log the collision time to the console
+                }
+            }
+        }
+    }
+    
+    
+            class Ball {
+                constructor(x, y, radius, dx, dy, color) {
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+                this.dx = dx;
+                this.dy = dy;
+                this.color = color;
+                }
+    
+                draw(ctx) {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                    ctx.closePath();
+                }
+    
+                update(canvas) {
+                    if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+                        this.dx = -this.dx;
+                        }
+    
+                    if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
+                        this.dy = -this.dy;
+                        }
+    
+                    this.x += this.dx;
+                    this.y += this.dy;
+                }
+    
+                animate(ctx, canvas) {
+                    this.x += this.dx;
+                    this.y += this.dy;
+    
+                    if (this.x - this.radius < 0 || this.x + this.radius > canvas.width) {
+                        this.dx = -this.dx;
+                    }
+    
+                    if (this.y - this.radius < 0 || this.y + this.radius > canvas.height) {
+                        this.dy = -this.dy;
+                    }
+    
+                    this.draw(ctx);
+                }
+            }
+                 
+        const ctx = canvas.getContext("2d");
+      
+        function detectCollision(ball1, ball2) {
+            const dx = ball1.x - ball2.x;
+            const dy = ball1.y - ball2.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            return distance < ball1.radius + ball2.radius;
+            }
+    
+            const ball1 = new Ball(100, 100, 20, 2, 3, "red");
+            const ball2 = new Ball(200, 200, 20, -2, -3, "blue");
+            const ball3 = new Ball(300, 150, 20, 3, 2, "green");
+            const balls = [ball1, ball2, ball3];
+    
+            const colors = ["red", "blue", "green"];
+    
+        function changeColor(ball) {
+            const currentColorIndex = colors.indexOf(ball.color);
+        
+            let newColorIndex;
+                do {
+                newColorIndex = Math.floor(Math.random() * colors.length);
+                } while (newColorIndex === currentColorIndex);
+    
+            ball.color = colors[newColorIndex];
+        }
+    
+    let lastCollisionTime = null;
+    
+    function resolveCollision(ball1, ball2) {
+        const dx = ball2.x - ball1.x;
+        const dy = ball2.y - ball1.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+    
+        if (distance < ball1.radius + ball2.radius) {
+            // Calculate the unit vector of the collision normal
+            const nx = dx / distance;
+            const ny = dy / distance;
+    
+            // Calculate the relative velocity of the balls
+            const dvx = ball2.dx - ball1.dx;
+            const dvy = ball2.dy - ball1.dy;
+            const dotProduct = dvx * nx + dvy * ny;
+    
+            // Calculate the impulse scalar
+            const mass1 = Math.PI * ball1.radius ** 2;
+            const mass2 = Math.PI * ball2.radius ** 2;
+            const impulse = (2 * dotProduct) / (mass1 + mass2);
+    
+            // Apply the impulse to the velocities
+            ball1.dx += impulse * nx * mass2;
+            ball1.dy += impulse * ny * mass2;
+            ball2.dx -= impulse * nx * mass1;
+            ball2.dy -= impulse * ny * mass1;
+    
+            // Separate the balls along the collision normal
+            const overlap = ball1.radius + ball2.radius - distance;
+            ball1.x -= overlap * nx * 0.5;
+            ball1.y -= overlap * ny * 0.5;
+            ball2.x += overlap * nx * 0.5;
+            ball2.y += overlap * ny * 0.5;
+        }
+    }
+    
+    let animationId;
+    
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+        for (const ball of balls) {
+            ball.animate(ctx, canvas);
+        }
+    
+        for (let i = 0; i < balls.length; i++) {
+            for (let j = i + 1; j < balls.length; j++) {
+                if (detectCollision(balls[i], balls[j])) {
+                    resolveCollision(balls[i], balls[j]);
+                }
+            }
+        }
+    
+    task1(); // Call task1() to update collisionTimes
+    
+    animationId = requestAnimationFrame(draw); 
+    }
+    
+    draw();
+    
+    
+    function endTask() {
+        cancelAnimationFrame(animationId);
+        canvasContainer.removeChild(canvas);
+        document.removeEventListener('keydown', keyDownHandler);
+        callback(keyPresses, collisionTimes);
+    }
+    
+    setTimeout(endTask, 20000);
+    };
+                </script>
+
+                
+</body>
+</html>
