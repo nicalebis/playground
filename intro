@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <script src="probes.js"></script>
+</head>
+<body>
+<!-- Generate screen and screenText-->
+    <div id="screen">
+        <div id="screenText">
+            
+            <!------------------------>
+            <!---- Welcome Screen ---->
+            <!------------------------>
+ 
+            <div id="welcome-screen" style="display: block;">
+                <h1>Welcome to the experiment!</h1>
+                <p>Press the spacebar to continue.</p>
+            </div>
+
+            <script>
+
+            // Spacebar press moes to example-1-screen
+            function welcomeScreenHandler(event) {
+                if (event.code === "Space") {
+                    document.getElementById("welcome-screen").style.display = "none";
+                    document.getElementById("example-1-screen").style.display = "block";
+                    document.getElementById("example-1-video").style.display = "none";
+                    document.getElementById("example-continue").style.display = "none";
+                    document.removeEventListener('keydown', welcomeScreenHandler);
+                    document.addEventListener('keydown', example1ScreenHandler);
+                }
+            }
+
+            // welcome screen event listener                              
+            document.addEventListener('keydown', welcomeScreenHandler);
+            </script>
+
+            <!-------------------------->
+            <!---- Example Screen 1 ---->
+            <!-------------------------->
+
+            <div id="example-1-screen" style="display: none;">
+                <div>
+                    <h1> Example 1 </h1>
+                    <p> Watch the following movie </p>
+                    <p> Press the spacebar to continue </p>
+                </div>
+                <div>
+                    <video id="example-1-video" width="720" height="480" style="display:none;">
+                        <source src="../videos/sample_video.mp4" type="video/mp4">
+                    </video> 
+                    <p id="example-continue" style="display: none;"> 
+                        Press the spacebar to continue.
+                    </p>
+                </div>
+            </div>
+
+            <script>
+                // spacebar moves to example-1-video
+                function example1ScreenHandler(event) {
+                    const example1Screen = document.getElementById("example-1-screen");
+                    const example1Video = document.getElementById("example-1-video");
+                    if (event.code === "Space" && example1Screen.style.display === 'block') {
+                        example1Screen.style.display = 'none';
+                        example1Video.style.display = 'block';
+                        example1Video.play();
+                    }
+                };
+                
+                // example-continue text appears below video when finished
+                var video = document.getElementById("example-1-video");
+                video.onended = function(e) {
+                    document.getElementById("example-continue").style.display = "block";
+                    document.addEventListener('keydown', example1ContinueHandler);
+                };
+
+                function example1ContinueHandler(event) {
+                    const example1Screen = document.getElementById("example-1-screen");
+                    const example1Continue = document.getElementById("example-continue");
+                    if (event.code === "Space" && example1Continue.style.display === 'block') {
+                        example1Screen.style.display = 'none';
+                        document.getElementById('example-2-screen').style.display = 'block';
+                        document.removeEventListener('keydown', example1ContinueHandler);
+                        document.addEventListener('keydown', example2ScreenHandler);
+                    }
+                };
+            </script>
+
+            <!-------------------------->
+            <!---- Example Screen 2 ---->
+            <!-------------------------->
+
+            <div id="example-2-screen" style="display: none;">
+                <div>
+                    <h1> Example 2 </h1>
+                    <p> Watch the following movie </p>
+                    <p> Press the spacebar to continue </p>
+                </div>
+                <div>
+                    <video id="example-2-video-1" width="720" height="480" style="display: none;">
+                        <source src="../videos/sample_video.mp4" type="video/mp4">
+                    </video> 
+                    <p id = "example-2-continue-1" style="display: none;"> 
+                        Press the spacebar to continue.
+                    </p>
+                </div>
+                <div>
+                    <video id="example-2-video-2" width="720" height="480" style="display: none;">
+                        <source src="../videos/sample_video.mp4" type="video/mp4">
+                    </video> 
+                    <p id = "example-2-continue-2" style="display: none;"> 
+                        Press the spacebar to continue.
+                    </p>
+                </div>
+                <!-- Now you try -->
+                <div>
+                    <video id="example-2-video-3" width="720" height="480" style="display: none;">
+                        <source src="../videos/sample_video.mp4" type="video/mp4">
+                    </video> 
+                    <p id = "example-2-continue-3" style="display: none;"> 
+                        Press the spacebar to continue.
+                    </p>
+                </div>
+
+            </div>
+
+            <script>
+            // spacebar moves to example-2-video-1
+            document.addEventListener('keydown', example2ScreenHandler);
+            function example2ScreenHandler(event) {
+                const example2Screen = document.getElementById("example-2-screen");
+                const example2Video1 = document.getElementById("example-2-video-1");
+                if (event.code === "Space" && example2Screen.style.display === 'block') {
+                    example2Video1.style.display = 'block';
+                    document.getElementById('example-2-video-1').play();
+                    document.removeEventListener('keydown', example2ScreenHandler);
+                }
+            }
+
+            // example-2-continue-1 text appears below video when video ends
+            var video = document.getElementById("example-2-video-1");
+            video.onended = function(e) {
+                document.getElementById("example-2-continue-1").style.display = "block";
+                document.addEventListener('keydown', example2Continue1Handler);
+            };
+
+            function example2Continue1Handler(event) {
+                const example2Screen = document.getElementById("example-2-screen");
+                const example2Continue1 = document.getElementById("example-2-continue-1");
+                if (event.code === "Space" && example2Continue1.style.display === 'block') {
+                    example2Continue1.style.display = 'none';
+                    document.getElementById('example-2-video-2').style.display = 'block';
+                    document.getElementById('example-2-video-2').play();
+                    document.removeEventListener('keydown', example2Continue1Handler);
+                }
+            };
+
+            // example-2-continue-2 text appears below video when video ends
+            var video = document.getElementById("example-2-video-2");
+            video.onended = function(e) {
+                document.getElementById("example-2-continue-2").style.display = "block";
+                document.addEventListener('keydown', example2Continue2Handler);
+            };
+
+            function example2Continue2Handler(event) {
+                const example2Screen = document.getElementById("example-2-screen");
+                const example2Continue2 = document.getElementById("example-2-continue-2");
+                if (event.code === "Space" && example2Continue2.style.display === 'block') {
+                    example2Continue2.style.display = 'none';
+                    document.getElementById('example-2-video-3').style.display = 'block';
+                    document.getElementById('example-2-video-3').play();
+                    document.removeEventListener('keydown', example2Continue2Handler);
+                }
+            };
+
+            // example-2-continue-3 text appears below video when video ends
+            var video = document.getElementById("example-2-video-3");
+            video.onended = function(e) {
+                document.getElementById("example-2-continue-3").style.display = "block";
+                document.addEventListener('keydown', example2Continue3Handler);
+            };
+            
+            // spacebar moves to training screen
+            function example2Continue3Handler(event) {
+                const example2Screen = document.getElementById("example-2-screen");
+                const example2Continue3 = document.getElementById("example-2-continue-3");
+                if (event.code === "Space" && example2Continue3.style.display === 'block') {
+                    example2Continue3.style.display = 'none';
+                    example2Screen.style.display = 'none';
+                    document.getElementById('trial-1-screen').style.display = 'block';
+                    document.removeEventListener('keydown', example2Continue3Handler);
+                }
+            };
+
+        </script>   
+  </div>
+  </div>
+  </body>
+</html>
