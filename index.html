@@ -11,81 +11,81 @@
   <!-- Introduction Screens-->  
       <div id="welcome-screen" class="intro-container" data-screen="0">
           <div id="welcome-text">
-              <h1>Welcome to the Experiment!</h1>
+              <h1 style="text-align:center">Welcome to the Experiment!</h1>
               <div id="welcome-continue" class="continue">
-                  <p>Press Spacebar to Continue</p>
+                  <p style="text-align:center">Press Spacebar to Continue</p>
               </div>
           </div>
       </div>
 
       <div id="introduction-screen" class="intro-container hidden" data-screen="1">
           <div id="experiment-body-text">
-            <p>Introduction Text</p>
+            <p style="text-align:center">Introduction Text</p>
             <div id="introduction-continue" class="continue" style="display:none;">
-              <p>Press Spacebar to Continue</p>
+              <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
          </div>
       </div>
 
       <div id="example-1-screen-1" class="intro-container hidden" data-screen="2">
           <div id="example-1-text-1">
-              <p>Example 1-1</p>
+              <p style="text-align:center">Example 1-1</p>
           </div>
           <div id="example-1-video-1" class="trial-video-container">
                 <video src="videos/training2-red.mp4" width="960" height="540" autoplay muted preload="auto">
                 </video>
           </div>
           <div id="example-1-continue-1" class="continue" style="display:none;">
-            <p>Press Spacebar to Continue</p>
+            <p style="text-align:center">Press Spacebar to Continue</p>
           </div>
       </div>
 
       <div id="example-1-screen-2" class="intro-container hidden" data-screen="3">
           <div id="example-1-text-2">
-              <p>Example 1-2</p>
+              <p style="text-align:center">Example 1-2</p>
                 </div>
             <div id="example-1-video-2" class="video-container">
                 <video src="videos/training2-red.mp4" width="960" height="540" autoplay muted preload="auto">
                 </video>
             </div>
             <div id="example-1-continue-2" class="continue" style="display:none;">
-                <p>Press Spacebar to Continue</p>
+                <p style="text-align:center">Press Spacebar to Continue</p>
                 </div>
       </div>
 
       <div id="example-1-screen-3" class="intro-container hidden" data-screen="4">
           <div id="example-1-text-3">
-              <p>Example 1-3</p>
+              <p style="text-align:center">Example 1-3</p>
           </div>
           <div id="example-1-video-3" class="video-container">
                 <video src="videos/training2-red.mp4" width="960" height="540" autoplay muted preload="auto">
                 </video>
           </div>
         <div id="example-1-continue-3" class="continue" style="display:none;">
-          <p>Press Spacebar to Continue</p>
+          <p style="text-align:center">Press Spacebar to Continue</p>
           </div>
       </div>
 
       <div id="training-screen" class="intro-container hidden" data-screen="5">
           <div id="training-text">
-              <p>Here is where the experiment will go.</p>
+              <p style="text-align:center">Training Video</p>
           </div>
           <div id="training-video" class="video-container">
                 <video src="videos/training1-red.mp4" width="960" height="540" autoplay muted preload="auto">
                 </video>
           </div>
             <div id="training-continue" class="continue" style="display:none;">
-                <p>Press Spacebar to move to Main Trials</p>
+                <p style="text-align:center">Press Spacebar to move to Main Trials</p>
             </div>
       </div>
 
   <!-- Experiment Screens-->
     <div id="main-trials-instructions" class="trial-container hidden" data-screen="6">
         <div id="main-trials-instructions-text">
-            <p>Here is where the experiment will go.</p>
+            <p style="text-align:center">Main Experiment Instructions</p>
         </div>
         <div id="main-trials-continue" class="continue" style="display:none;">
-            <p>Press Spacebar to move to Main Trials</p>
+            <p style="text-align:center">Press Spacebar to move to Main Trials when ready</p>
         </div>
     </div>
 
@@ -93,7 +93,7 @@
         <div id="trial-1" class="trial-container hidden" data-screen="7">
             <div class="trial-video-container" style="position:relative; width:960px; height:540px">
                 <video id="video-1" width="960" height="540" autoplay muted preload="auto">
-                    <source type="video/mp4">
+                    <source src="videos/S2U.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <canvas id="canvas-1" width="960" height="540" class="canvas"></canvas>
@@ -102,14 +102,14 @@
                 <div id="trial-1-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div id="trial-1-continue" class="continue" style="display:none;">
-                <p>Press Spacebar to Continue</p>
+                <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
         </div>
 
         <div id="trial-2" class="trial-container hidden" data-screen="8">
             <div class="trial-video-container" style="position:relative; width:960px; height:540px">
                 <video id="video-2" width="960" height="540" autoplay muted preload="auto">
-                    <source type="video/mp4">
+                    <source src="videos/P4U.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <canvas id="canvas-2" width="960" height="540" class="canvas"></canvas>
@@ -118,14 +118,14 @@
                 <div id="trial-2-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div id="trial-2-continue" class="continue" style="display:none;">
-                <p>Press Spacebar to Continue</p>
+                <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
       </div>
 
         <div id="trial-3" class="trial-container hidden" data-screen="9">
             <div class="trial-video-container" style="position:relative; width:960px; height:540px">
                 <video id="video-3" width="960" height="540" autoplay muted preload="auto">
-                    <source type="video/mp4">
+                    <source src="videos/S3E.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <canvas id="canvas-3" width="960" height="540" class="canvas"></canvas>
@@ -134,14 +134,14 @@
                 <div id="trial-3-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div id="trial-3-continue" class="continue" style="display:none;">
-                <p>Press Spacebar to Continue</p>
+                <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
         </div>
 
         <div id="trial-4" class="trial-container hidden" data-screen="10">
             <div class="trial-video-container" style="position:relative; width:960px; height:540px">
                 <video id="video-4" width="960" height="540" autoplay muted preload="auto">
-                    <source type="video/mp4">
+                    <source src="videos/P2E.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <canvas id="canvas-4" width="960" height="540" class="canvas"></canvas>
@@ -150,14 +150,14 @@
                 <div id="trial-4-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div id="trial-4-continue" class="continue" style="display:none;">
-                <p>Press Spacebar to Continue</p>
+                <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
       </div>
 
       <div id="trial-5" class="trial-container hidden" data-screen="11">
           <div class="trial-video-container" style="position:relative; width:960px; height:540px">
               <video id="video-5" width="960" height="540" autoplay muted preload="auto">
-                  <source type="video/mp4">
+                  <source src="videos/S5U.mp4" type="video/mp4">
                   Your browser does not support the video tag.
               </video>
               <canvas id="canvas-5" width="960" height="540" class="canvas"></canvas>
@@ -166,14 +166,14 @@
               <div id="trial-5-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
           <div id="trial-5-continue" class="continue" style="display:none;">
-              <p>Press Spacebar to Continue</p>
+              <p style="text-align:center">Press Spacebar to Continue</p>
           </div>
         </div>
 
         <div id="trial-6" class="trial-container hidden" data-screen="12">
             <div class="trial-video-container" style="position:relative; width:960px; height:540px">
                 <video id="video-6" width="960" height="540" autoplay muted preload="auto">
-                    <source type="video/mp4">
+                    <source src="videos/P1U.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <canvas id="canvas-6" width="960" height="540" class="canvas"></canvas>
@@ -182,14 +182,14 @@
                 <div id="trial-6-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div id="trial-6-continue" class="continue" style="display:none;">
-                <p>Press Spacebar to Continue</p>
+                <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
         </div>
 
         <div id="trial-7" class="trial-container hidden" data-screen="13">
             <div class="trial-video-container" style="position:relative; width:960px; height:540px">
                 <video id="video-7" width="960" height="540" autoplay muted preload="auto">
-                    <source type="video/mp4">
+                    <source src="videos/S1U.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <canvas id="canvas-7" width="960" height="540" class="canvas"></canvas>
@@ -198,14 +198,14 @@
                 <div id="trial-7-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div id="trial-7-continue" class="continue" style="display:none;">
-                <p>Press Spacebar to Continue</p>
+                <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
         </div>
 
         <div id="trial-8" class="trial-container hidden" data-screen="14">
             <div class="trial-video-container" style="position:relative; width:960px; height:540px">
                 <video id="video-8" width="960" height="540" autoplay muted preload="auto">
-                    <source type="video/mp4">
+                    <source src="videos/P3E.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <canvas id="canvas-8" width="960" height="540" class="canvas"></canvas>
@@ -214,14 +214,14 @@
                 <div id="trial-8-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div id="trial-8-continue" class="continue" style="display:none;">
-                <p>Press Spacebar to Continue</p>
+                <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
         </div>
 
         <div id="trial-9" class="trial-container hidden" data-screen="15">
             <div class="trial-video-container" style="position:relative; width:960px; height:540px">
                 <video id="video-9" width="960" height="540" autoplay muted preload="auto">
-                    <source type="video/mp4">
+                    <source src="videos/S4U.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <canvas id="canvas-9" width="960" height="540" class="canvas"></canvas>
@@ -230,14 +230,14 @@
                 <div id="trial-9-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div id="trial-9-continue" class="continue" style="display:none;">
-                <p>Press Spacebar to Continue</p>
+                <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
         </div>
 
         <div id="trial-10" class="trial-container hidden" data-screen="16">
             <div class="trial-video-container" style="position:relative; width:960px; height:540px">
                 <video id="video-10" width="960" height="540" autoplay muted preload="auto">
-                    <source type="video/mp4">
+                    <source src="videos/S2E.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <canvas id="canvas-10" width="960" height="540" class="canvas"></canvas>
@@ -246,14 +246,14 @@
                 <div id="trial-10-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div id="trial-10-continue" class="continue" style="display:none;">
-                <p>Press Spacebar to Continue</p>
+                <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
         </div>
 
         <div id="trial-11" class="trial-container hidden" data-screen="17">
             <div class="trial-video-container" style="position:relative; width:960px; height:540px">
                 <video id="video-11" width="960" height="540" autoplay muted preload="auto">
-                    <source type="video/mp4">
+                    <source src="videos/P4E.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <canvas id="canvas-11" width="960" height="540" class="canvas"></canvas>
@@ -262,14 +262,14 @@
                 <div id="trial-11-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div id="trial-11-continue" class="continue" style="display:none;">
-                <p>Press Spacebar to Continue</p>
+                <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
         </div>
 
         <div id="trial-12" class="trial-container hidden" data-screen="18">
             <div class="trial-video-container" style="position:relative; width:960px; height:540px">
                 <video id="video-12" width="960" height="540" autoplay muted preload="auto">
-                    <source type="video/mp4">
+                    <source src="videos/S3U.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <canvas id="canvas-12" width="960" height="540" class="canvas"></canvas>
@@ -278,14 +278,14 @@
                 <div id="trial-12-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div id="trial-12-continue" class="continue" style="display:none;">
-                <p>Press Spacebar to Continue</p>
+                <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
         </div>
 
         <div id="trial-13" class="trial-container hidden" data-screen="19">
             <div class="trial-video-container" style="position:relative; width:960px; height:540px">
                 <video id="video-13" width="960" height="540" autoplay muted preload="auto">
-                    <source type="video/mp4">
+                    <source src="videos/P2U.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <canvas id="canvas-13" width="960" height="540" class="canvas"></canvas>
@@ -294,14 +294,14 @@
                 <div id="trial-13-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div id="trial-13-continue" class="continue" style="display:none;">
-                <p>Press Spacebar to Continue</p>
+                <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
         </div>
 
         <div id="trial-14" class="trial-container hidden" data-screen="20">
             <div class="trial-video-container" style="position:relative; width:960px; height:540px">
                 <video id="video-14" width="960" height="540" autoplay muted preload="auto">
-                    <source type="video/mp4">
+                    <source src="videos/S5E.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <canvas id="canvas-14" width="960" height="540" class="canvas"></canvas>
@@ -310,14 +310,14 @@
                 <div id="trial-14-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div id="trial-14-continue" class="continue" style="display:none;">
-                <p>Press Spacebar to Continue</p>
+                <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
         </div>
 
         <div id="trial-15" class="trial-container hidden" data-screen="21">
             <div class="trial-video-container" style="position:relative; width:960px; height:540px">
                 <video id="video-15" width="960" height="540" autoplay muted preload="auto">
-                    <source type="video/mp4">
+                    <source src="videos/S4E.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <canvas id="canvas-15" width="960" height="540" class="canvas"></canvas>
@@ -326,14 +326,14 @@
                 <div id="trial-15-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div id="trial-15-continue" class="continue" style="display:none;">
-                <p>Press Spacebar to Continue</p>
+                <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
         </div>
 
         <div id="trial-16" class="trial-container hidden" data-screen="22">
             <div class="trial-video-container" style="position:relative; width:960px; height:540px">
                 <video id="video-16" width="960" height="540" autoplay muted preload="auto">
-                    <source type="video/mp4">
+                    <source src="videos/P1E.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <canvas id="canvas-16" width="960" height="540" class="canvas"></canvas>
@@ -342,14 +342,14 @@
                 <div id="trial-16-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div id="trial-16-continue" class="continue" style="display:none;">
-                <p>Press Spacebar to Continue</p>
+                <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
         </div>
 
         <div id="trial-17" class="trial-container hidden" data-screen="23">
             <div class="trial-video-container" style="position:relative; width:960px; height:540px">
                 <video id="video-17" width="960" height="540" autoplay muted preload="auto">
-                    <source type="video/mp4">
+                    <source src="videos/P3U.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <canvas id="canvas-17" width="960" height="540" class="canvas"></canvas>
@@ -358,14 +358,14 @@
                 <div id="trial-17-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div id="trial-17-continue" class="continue" style="display:none;">
-                <p>Press Spacebar to Continue</p>
+                <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
         </div>
 
         <div id="trial-18" class="trial-container hidden" data-screen="24">
             <div class="trial-video-container" style="position:relative; width:960px; height:540px">
                 <video id="video-18" width="960" height="540" autoplay muted preload="auto">
-                    <source type="video/mp4">
+                    <source src="videos/S1E.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <canvas id="canvas-18" width="960" height="540" class="canvas"></canvas>
@@ -374,7 +374,7 @@
                 <div id="trial-18-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div id="trial-18-continue" class="continue" style="display:none;">
-                <p>Press Spacebar to Continue</p>
+                <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
         </div>
 
@@ -565,10 +565,8 @@ function setScreenCompletion(screenIndex) {
 
             runTrialWithProbes(4, 'canvas-4', 'video-4')
             break;
-    
-    
 
-    // Add more cases for each screen as needed, setting the appropriate completion criteria
+
     default:
       // Default behavior for screens without specific completion criteria
       setTimeout(function() {
@@ -582,52 +580,6 @@ function setScreenCompletion(screenIndex) {
 // Set the completion criteria for the initial screen
 setScreenCompletion(currentScreen);
 
-
-// Generate random sequence of videos
-function generateVideoSequence() {
-  const videoNames = [
-    'P1E, 'P1U', 'P2E', 'P2U', 'P3E', 'P3U', 'P4E', 'P4U',
-    'S1E', 'S1U', 'S2E', 'S2U', 'S3E', 'S3U', 'S4E', 'S4U', 'S5E', 'S5U',
-  ];
-
-  let sequence = [];
-  const checkCondition = (name, condition) => name.includes(condition);
-
-  while (videoNames.length > 0) {
-    const index = Math.floor(Math.random() * videoNames.length);
-    const videoName = videoNames[index];
-
-    if (sequence.length >= 2) {
-      const lastTwoVideos = sequence.slice(-2);
-      const lastTwoS = lastTwoVideos.every(video => checkCondition(video, 'S'));
-      const lastTwoU = lastTwoVideos.every(video => checkCondition(video, 'U'));
-
-      if ((lastTwoS && checkCondition(videoName, 'S')) || (lastTwoU && checkCondition(videoName, 'U'))) {
-        continue;
-      }
-    }
-
-    sequence.push(videoName);
-    videoNames.splice(index, 1);
-  }
-
-  return sequence;
-}
-
-// Load random sequence of videos
-function loadVideoSequence(sequence) {
-  sequence.forEach((videoName, index) => {
-    const videoElement = document.getElementById(`video-${index + 1}`);
-    if (videoElement) {
-      const source = videoElement.querySelector('source');
-      source.src = `videos/${videoName}.mp4`;
-      videoElement.load();
-    }
-  });
-}
-
-const videoSequence = generateVideoSequence();
-loadVideoSequence(videoSequence);
 
 </script>
 </body>
