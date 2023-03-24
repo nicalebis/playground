@@ -1,0 +1,116 @@
+/* Main parts */
+body {
+  background-color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Changes for Probe Task */
+.trial-video-container {
+    position: relative;
+}
+
+.canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+/* Screens */
+
+/* Welcome screen */
+welcome-screen {
+
+}
+
+/* Introduction screen */
+introduction-screen {
+
+}
+
+/* Example 1 screen 1 */
+example-1-screen-1 {
+
+}
+
+#example-1-screen-1 .example-1-text-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#example-1-screen-1 .example-1-video-1 {
+    position: absolute;
+    top: 50;
+    left: 0;
+}
+
+#example-1-screen-1 .example-1-continue-1 {
+
+}
+
+/* Example 1 screen 2 */
+example-1-screen-2 {
+
+}
+
+#example-1-screen-2 .example-1-text-2 {
+
+}
+
+#example-1-screen-2 .example-1-video-2 {
+
+}
+
+#example-1-screen-2 .example-1-continue-2 {
+
+}
+
+/* Example 1 screen 3 */
+example-1-screen-3 {
+
+}
+
+/* Example 1 screen 4 */
+training-screen {
+
+}
+
+/* Example 2 screen 1 */
+main-trials-instructions {
+
+}
+
+trial-1-screen {
+
+}
+
+trial-2-screen {
+
+}
+
+trial-3-screen {
+
+}
+
+trial-4-screen {
+
+}
