@@ -3,26 +3,37 @@
   <head>
     <script src="exp-script.js" type="text/javascript"></script>
     <link href="exp-style.css" rel="stylesheet" type="text/css" />
-    <script src="probes.js" type="text/javascript"></script>
+    <script src="probes2.js" type="text/javascript"></script>
     <style>
     </style>
   </head>
 <body>
-  <!-- Introduction Screens-->  
+  <!-- Introduction Screens--> 
+  <div id="experiment wrapper" style="width:100%; height:100%;">
       <div id="welcome-screen" class="intro-container" data-screen="0">
-          <div id="welcome-text">
-              <h1 style="text-align:center">Welcome to the Experiment!</h1>
+          <div id="welcome-text"><br><br><br><br><br><br><br>
+              <h1 style="font-size: 75px; text-align:center;">
+                Welcome to the Experiment!</h1><br>
               <div id="welcome-continue" class="continue">
-                  <p style="text-align:center">Press Spacebar to Continue</p>
-              </div>
+                  <p> [Press Spacebar to Continue]</p>
+              </div> 
           </div>
       </div>
 
       <div id="introduction-screen" class="intro-container hidden" data-screen="1">
-          <div id="experiment-body-text">
-            <p style="text-align:center">Introduction Text</p>
+          <div id="experiment-body-text"><br><br><br><br>
+            <p style="font-size:50px;" class = "directions">
+                Directions:</p><br>
+            <p class = "directions">
+                In this experiment, your task will be to watch</p><br>
+            <p class = "directions">
+                videos carefully, and press [spacebar] each time you</p><br>
+            <p class = "directions">
+                feel that an event has occurred within the video.</p><br>
+            <p class = "directions">
+                Please proceed to the next page to watch a practice video.</p><br><br>
             <div id="introduction-continue" class="continue" style="display:none;">
-              <p style="text-align:center">Press Spacebar to Continue</p>
+              <p style="text-align:center; font-size:25px;">[Press Spacebar to Continue]</p>
             </div>
          </div>
       </div>
@@ -31,12 +42,13 @@
           <div id="example-1-text-1">
               <p style="text-align:center">Example 1-1</p>
           </div>
-          <div id="example-1-video-1" class="trial-video-container">
+          <div id="example-1-video-1" class="video-container">
                 <video src="videos/training2-red.mp4" width="960" height="540" autoplay muted preload="auto">
                 </video>
           </div>
           <div id="example-1-continue-1" class="continue" style="display:none;">
-            <p style="text-align:center">Press Spacebar to Continue</p>
+            <p style="text-align:center">
+                [Press Spacebar to Continue]</p>
           </div>
       </div>
 
@@ -44,12 +56,14 @@
           <div id="example-1-text-2">
               <p style="text-align:center">Example 1-2</p>
                 </div>
-            <div id="example-1-video-2" class="video-container">
+            <div id="example-1-video-2" class="video-container"
+                    style="align-content: center;">
                 <video src="videos/training2-red.mp4" width="960" height="540" autoplay muted preload="auto">
                 </video>
             </div>
             <div id="example-1-continue-2" class="continue" style="display:none;">
-                <p style="text-align:center">Press Spacebar to Continue</p>
+                <p style="text-align:center">
+                    [Press Spacebar to Continue]</p>
                 </div>
       </div>
 
@@ -57,12 +71,14 @@
           <div id="example-1-text-3">
               <p style="text-align:center">Example 1-3</p>
           </div>
-          <div id="example-1-video-3" class="video-container">
+          <div id="example-1-video-3" class="video-container"
+          style="align-content:center;">
                 <video src="videos/training2-red.mp4" width="960" height="540" autoplay muted preload="auto">
                 </video>
           </div>
         <div id="example-1-continue-3" class="continue" style="display:none;">
-          <p style="text-align:center">Press Spacebar to Continue</p>
+          <p style="text-align:center">
+            [Press Spacebar to Continue]</p>
           </div>
       </div>
 
@@ -70,22 +86,33 @@
           <div id="training-text">
               <p style="text-align:center">Training Video</p>
           </div>
-          <div id="training-video" class="video-container">
+          <div id="training-video" class="video-container"
+                style="align-content:center;">
                 <video src="videos/training1-red.mp4" width="960" height="540" autoplay muted preload="auto">
                 </video>
           </div>
             <div id="training-continue" class="continue" style="display:none;">
-                <p style="text-align:center">Press Spacebar to move to Main Trials</p>
+                <p style="text-align:center">
+                    [Press Spacebar to move to Main Trials]</p>
             </div>
       </div>
 
   <!-- Experiment Screens-->
     <div id="main-trials-instructions" class="trial-container hidden" data-screen="6">
-        <div id="main-trials-instructions-text">
-            <p style="text-align:center">Main Experiment Instructions</p>
+        <div id="main-trials-instructions-text"><br><br>
+            <h1 style="text-align:center">
+                Main Experiment Instructions</h1><br><br>
+            <p style="text-align:center">
+                In the following trials, you will be shown videos that</p><br>
+            <p style="text-align:center">
+                depict simple scenes. Please watch the videos carefully and</p><br>
+            <p style="text-align:center">
+                press [spacebar] each time you feel that an event has</p><br>
+            <p style="text-align:center">
+                occurred within the video. </p><br>
         </div>
         <div id="main-trials-continue" class="continue" style="display:none;">
-            <p style="text-align:center">Press Spacebar to move to Main Trials when ready</p>
+            <p style="text-align:center; font-size:20px;">Press Spacebar to move to Main Trials when ready</p>
         </div>
     </div>
 
@@ -377,7 +404,7 @@
                 <p style="text-align:center">Press Spacebar to Continue</p>
             </div>
         </div>
-
+    </div>
 
 
 
@@ -564,6 +591,262 @@ function setScreenCompletion(screenIndex) {
             });
 
             runTrialWithProbes(4, 'canvas-4', 'video-4')
+            break;
+        
+    case 11:
+        const trial5Video = document.querySelector('#video-5');
+        const trial5Progress = document.querySelector('#trial-5-progress');
+        trial5Video.addEventListener('ended', function() {
+            trial5Video.parentNode.style.display = 'none';
+            trial5Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            runTrialWithProbes(5, 'canvas-5', 'video-5')
+            break;
+    
+    case 12:
+        const trial6Video = document.querySelector('#video-6');
+        const trial6Progress = document.querySelector('#trial-6-progress');
+        trial6Video.addEventListener('ended', function() {
+            trial6Video.parentNode.style.display = 'none';
+            trial6Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            runTrialWithProbes(6, 'canvas-6', 'video-6')
+            break;
+    
+    case 13:
+        const trial7Video = document.querySelector('#video-7');
+        const trial7Progress = document.querySelector('#trial-7-progress');
+        trial7Video.addEventListener('ended', function() {
+            trial7Video.parentNode.style.display = 'none';
+            trial7Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            runTrialWithProbes(7, 'canvas-7', 'video-7')
+            break;
+    
+    case 14:
+        const trial8Video = document.querySelector('#video-8');
+        const trial8Progress = document.querySelector('#trial-8-progress');
+        trial8Video.addEventListener('ended', function() {
+            trial8Video.parentNode.style.display = 'none';
+            trial8Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            runTrialWithProbes(8, 'canvas-8', 'video-8')
+            break;
+    
+    case 15:
+        const trial9Video = document.querySelector('#video-9');
+        const trial9Progress = document.querySelector('#trial-9-progress');
+        trial9Video.addEventListener('ended', function() {
+            trial9Video.parentNode.style.display = 'none';
+            trial9Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            runTrialWithProbes(9, 'canvas-9', 'video-9')
+            break;
+
+    case 16:
+        const trial10Video = document.querySelector('#video-10');
+        const trial10Progress = document.querySelector('#trial-10-progress');
+        trial10Video.addEventListener('ended', function() {
+            trial10Video.parentNode.style.display = 'none';
+            trial10Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            runTrialWithProbes(10, 'canvas-10', 'video-10')
+            break;
+    
+    case 17:
+        const trial11Video = document.querySelector('#video-11');
+        const trial11Progress = document.querySelector('#trial-11-progress');
+        trial11Video.addEventListener('ended', function() {
+            trial11Video.parentNode.style.display = 'none';
+            trial11Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            runTrialWithProbes(11, 'canvas-11', 'video-11')
+            break;
+
+    case 18:
+        const trial12Video = document.querySelector('#video-12');
+        const trial12Progress = document.querySelector('#trial-12-progress');
+        trial12Video.addEventListener('ended', function() {
+            trial12Video.parentNode.style.display = 'none';
+            trial12Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            runTrialWithProbes(12, 'canvas-12', 'video-12')
+            break;
+    
+    case 19:
+        const trial13Video = document.querySelector('#video-13');
+        const trial13Progress = document.querySelector('#trial-13-progress');
+        trial13Video.addEventListener('ended', function() {
+            trial13Video.parentNode.style.display = 'none';
+            trial13Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            runTrialWithProbes(13, 'canvas-13', 'video-13')
+            break;
+
+    case 20:
+        const trial14Video = document.querySelector('#video-14');
+        const trial14Progress = document.querySelector('#trial-14-progress');
+        trial14Video.addEventListener('ended', function() {
+            trial14Video.parentNode.style.display = 'none';
+            trial14Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            runTrialWithProbes(14, 'canvas-14', 'video-14')
+            break;
+
+    case 21:
+        const trial15Video = document.querySelector('#video-15');
+        const trial15Progress = document.querySelector('#trial-15-progress');
+        trial15Video.addEventListener('ended', function() {
+            trial15Video.parentNode.style.display = 'none';
+            trial15Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            runTrialWithProbes(15, 'canvas-15', 'video-15')
+            break;
+
+    case 22:
+        const trial16Video = document.querySelector('#video-16');
+        const trial16Progress = document.querySelector('#trial-16-progress');
+        trial16Video.addEventListener('ended', function() {
+            trial16Video.parentNode.style.display = 'none';
+            trial16Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            runTrialWithProbes(16, 'canvas-16', 'video-16')
+            break;
+
+    case 23:
+        const trial17Video = document.querySelector('#video-17');
+        const trial17Progress = document.querySelector('#trial-17-progress');
+        trial17Video.addEventListener('ended', function() {
+            trial17Video.parentNode.style.display = 'none';
+            trial17Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            runTrialWithProbes(17, 'canvas-17', 'video-17')
+            break;
+
+    case 24:
+        const trial18Video = document.querySelector('#video-18');
+        const trial18Progress = document.querySelector('#trial-18-progress');
+        trial18Video.addEventListener('ended', function() {
+            trial18Video.parentNode.style.display = 'none';
+            trial18Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            runTrialWithProbes(18, 'canvas-18', 'video-18')
+            break;
+
+    case 25:
+        const trial19Video = document.querySelector('#video-19');
+        const trial19Progress = document.querySelector('#trial-19-progress');
+        trial19Video.addEventListener('ended', function() {
+            trial19Video.parentNode.style.display = 'none';
+            trial19Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            runTrialWithProbes(19, 'canvas-19', 'video-19')
+            break;
+
+    case 26:
+        const trial20Video = document.querySelector('#video-20');
+        const trial20Progress = document.querySelector('#trial-20-progress');
+        trial20Video.addEventListener('ended', function() {
+            trial20Video.parentNode.style.display = 'none';
+            trial20Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            runTrialWithProbes(20, 'canvas-20', 'video-20')
             break;
 
 
