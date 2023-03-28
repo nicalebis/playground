@@ -1,6 +1,7 @@
 /* Main parts */
+
 body {
-  background-color: #ffffff;
+  background-color: #bebebe;
   display:flex;
   flex-direction: column;
   height: 100vh;
@@ -51,6 +52,10 @@ p {
     position: relative;
     width: 960px;
     height: 540px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 30px;
 }
 
 .canvas {
