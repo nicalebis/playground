@@ -2,12 +2,50 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>title</title>
+    <title>Experiment Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        a {
+            display: inline-block;
+            background-color: #6d508a;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 10px;
+            font-size: 18px;
+            transition: background-color 0.2s;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <!-- open html files from folder exp-probes.html, exp-orientation.html and <exp-letters class="html" -->
-        <a href="exp-probes-config.html">probes</a><br>
-        <a href="exp-probes-rectangles-config.html">orientation</a><br>
-        <a href="exp-letters.html">letters</a> 
+    <div class="container">
+        <h1>Select an Experiment</h1>
+        <a href="exp-probes-config.html">Probes</a><br>
+        <a href="exp-probes-rectangles-config.html">Orientation</a><br>
+        <a href="exp-letters.html">Letters</a>
+    </div>
 </body>
 </html>
