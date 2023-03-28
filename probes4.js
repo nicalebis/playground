@@ -14,14 +14,12 @@ function setupProbes(videoId, canvasId) {
   
       const isTransparent = Math.random() < 0.5;
       ctx.fillStyle = isTransparent ? 'rgba(255, 0, 0, 0.5)' : 'red';
-  
       ctx.beginPath();
       ctx.arc(x, y, 2.5, 0, 2 * Math.PI);
       ctx.fill();
   
       console.log(`Probe appeared at (${x}, ${y}) - Video time: ${video.currentTime}`);
-      lastProbeTimes[videoId] = video.currentTime; // Update the last probe time for this video
-  
+       
       setTimeout(() => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
       }, 50);
@@ -50,7 +48,7 @@ function setupProbes(videoId, canvasId) {
     video.addEventListener('ended', () => {
       clearInterval(probeInterval);
     });
-  
+    
     video.addEventListener('timeupdate', () => {
       if (video.currentTime >= 2 && !probeInterval) {
         probeInterval = setInterval(checkVideoTime, 100);
