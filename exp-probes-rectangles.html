@@ -426,7 +426,24 @@ function nextScreen() {
 
 // Spacebar event listener
 document.addEventListener('keydown', function (event) {
-  if (event.code === 'Space') {
+  if (event.code === 'KeyF' || event.code === 'KeyJ') {
+    const videoTrial = document.querySelector(`[data-screen="${currentScreen}"] .trial-video-container video`);
+    if (videoTrial) {
+      const lastProbeData = lastProbeTimes[videoTrial.id];
+      const currentTime = new Date().getTime();
+      console.log(`${event.code} pressed at ${lastProbeData.videoTime}`);
+
+      if (lastProbeData) {
+        const correct = event.code === lastProbeData.correctKey;
+        console.log(`Video time: ${lastProbeData.videoTime}, Probe time: ${lastProbeData.videoTime}, Correct: ${correct}`);
+        console.log(`Probe dimensions: Width: ${lastProbeData.width}, Height: ${lastProbeData.height}`);
+      } else {
+        console.log("No probe data available");
+      }
+    } else {
+      console.log("Not in a video trial");
+    }
+  } else if (event.code === 'Space') {
     // Check if the "Press Spacebar to Continue" text is visible
     const continueText = document.querySelector(`[data-screen="${currentScreen}"] .continue`);
     if (continueText && continueText.offsetParent !== null) {
@@ -437,10 +454,10 @@ document.addEventListener('keydown', function (event) {
       console.log(`Spacebar pressed at ${currentTime}`);
 
       // Check if the current screen is a video trial
-      const videoTrial = document.querySelector(`[data-screen="${currentScreen}"] .video-container video`);
+      const videoTrial = document.querySelector(`[data-screen="${currentScreen}"] .trial-video-container video`);
       if (videoTrial) {
         const videoTime = videoTrial.currentTime;
-        const lastProbeTime = null; // Replace this with your probe time logging implementation
+        const lastProbeTime = lastProbeTimes[videoTrial.id].videoTime;
         console.log(`Video time: ${videoTime}, Last probe time: ${lastProbeTime}`);
       } else {
         console.log("Video time: null, Last probe time: null");
@@ -762,6 +779,3 @@ setScreenCompletion(currentScreen);
 </script>
 </body>
 </html>
-
-
-
