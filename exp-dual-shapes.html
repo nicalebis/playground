@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="exp-script.js" type="text/javascript"></script>
+    <link href="exp-style.css" rel="stylesheet" type="text/css" />
+    <script src="probes-dual-shapes.js" type="text/javascript"></script>
+    <style>
+    </style>
+  </head>
+<body>
+  <!-- Introduction Screens--> 
+  <div id="experiment wrapper" style="width:100%; height:100%;">
+    <div id="welcome-screen" class="intro-container" data-screen="0">
+        <div id="welcome-text"><br><br><br><br><br><br><br>
+            <h1 style="font-size: 75px; text-align:center;">
+              Welcome to the Experiment!</h1><br>
+            <div id="welcome-continue" class="continue">
+                <p> [Press Spacebar to Continue]</p>
+            </div> 
+        </div>
+    </div>
+
+    <div id="introduction-screen" class="intro-container hidden" data-screen="1">
+      <div id="experiment-body-text"><br><br><br><br>
+        <p style="font-size:50px;" class = "directions">
+            Directions:</p><br>
+        <p class = "directions">
+            In this experiment, your task will be to press </p><br>
+        <p class = "directions">
+            [spacebar] each time you detect a small probe on </p><br>
+        <p class = "directions" >
+            the screen occuring over the video background.</p><br>
+        <p class = "directions">
+            Please proceed to the next page for further instructions.</p><br><br>
+        <div id="introduction-continue" class="continue" style="display:none;">
+          <p style="text-align:center; font-size:25px;">[Press Spacebar to Continue]</p>
+        </div>
+     </div>
+  </div>
+
+<!-- Experiment Screens-->
+<div id="main-trials-instructions" class="trial-container hidden" data-screen="2">
+    <div id="main-trials-instructions-text"><br><br>
+        <h1 style="text-align:center">
+            Main Experiment Instructions</h1><br><br>
+        <p style="text-align:center">
+            In the following trials, you are to respond each time you detect </p><br>
+        <p style="text-align:center">
+            a small circle on the screen. Press [spacebar] as quickly as possible </p><br>
+        <p style="text-align:center">
+            each time one appears. </p><br>
+    </div>
+    <div id="main-trials-continue" class="continue" style="display:none;">
+        <p style="text-align:center; font-size:25px;">Press Spacebar to move to Main Trials when ready</p>
+    </div>
+</div>
+
+
+      <div id="trial-1" class="trial-container hidden" data-screen="3">
+          <center>
+          <div class="trial-video-container">
+              <video id="video-1" width="960px" height="540px" autoplay preload="auto">
+                  <source src="videos/S2U.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <canvas id="canvas-1" width="960" height="540" class="canvas"></canvas>
+          </div>
+          <div id="trial-1-progress" class="progress-container" style="display:none;">
+              <div id="trial-1-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="trial-1-continue" class="continue" style="display:none;">
+              <p style="text-align:center">Press Spacebar to Continue</p>
+          </div>
+          </center>
+      </div>
+
+      <div id="trial-2" class="trial-container hidden" data-screen="4">
+          <center>
+          <div class="trial-video-container">
+              <video id="video-2" width="960" height="540" autoplay preload="auto">
+                  <source src="videos/P4U.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <canvas id="canvas-2" width="960" height="540" class="canvas"></canvas>
+          </div>
+          <div id="trial-2-progress" class="progress-container" style="display:none;">
+              <div id="trial-2-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="trial-2-continue" class="continue" style="display:none;">
+              <p style="text-align:center">Press Spacebar to Continue</p>
+          </div>
+          </center>
+    </div>
+
+      <div id="trial-3" class="trial-container hidden" data-screen="5">
+          <center>
+          <div class="trial-video-container">
+              <video id="video-3" width="960" height="540" autoplay preload="auto">
+                  <source src="videos/S3E.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <canvas id="canvas-3" width="960" height="540" class="canvas"></canvas>
+          </div>
+          <div id="trial-3-progress" class="progress-container" style="display:none;">
+              <div id="trial-3-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="trial-3-continue" class="continue" style="display:none;">
+              <p style="text-align:center">Press Spacebar to Continue</p>
+          </div>
+          </center>
+      </div>
+
+      <div id="trial-4" class="trial-container hidden" data-screen="6">
+          <center>
+          <div class="trial-video-container">
+              <video id="video-4" width="960" height="540" autoplay preload="auto">
+                  <source src="videos/P2E.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <canvas id="canvas-4" width="960" height="540" class="canvas"></canvas>
+          </div>
+          <div id="trial-4-progress" class="progress-container" style="display:none;">
+              <div id="trial-4-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="trial-4-continue" class="continue" style="display:none;">
+              <p style="text-align:center">Press Spacebar to Continue</p>
+          </div>
+          </center>
+    </div>
+
+    <div id="trial-5" class="trial-container hidden" data-screen="7">
+        <center>
+          <div class="trial-video-container">
+            <video id="video-5" width="960" height="540" autoplay preload="auto">
+                <source src="videos/S5U.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <canvas id="canvas-5" width="960" height="540" class="canvas"></canvas>
+        </div>
+        <div id="trial-5-progress" class="progress-container" style="display:none;">
+            <div id="trial-5-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <div id="trial-5-continue" class="continue" style="display:none;">
+            <p style="text-align:center">Press Spacebar to Continue</p>
+        </div>
+      </div>
+
+      <div id="trial-6" class="trial-container hidden" data-screen="8">
+          <center>
+          <div class="trial-video-container">
+              <video id="video-6" width="960" height="540" autoplay preload="auto">
+                  <source src="videos/P1U.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <canvas id="canvas-6" width="960" height="540" class="canvas"></canvas>
+          </div>
+          <div id="trial-6-progress" class="progress-container" style="display:none;">
+              <div id="trial-6-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="trial-6-continue" class="continue" style="display:none;">
+              <p style="text-align:center">Press Spacebar to Continue</p>
+          </div>
+          </center>
+      </div>
+
+      <div id="trial-7" class="trial-container hidden" data-screen="9">
+          <center>
+          <div class="trial-video-container">
+              <video id="video-7" width="960" height="540" autoplay preload="auto">
+                  <source src="videos/S1U.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <canvas id="canvas-7" width="960" height="540" class="canvas"></canvas>
+          </div>
+          <div id="trial-7-progress" class="progress-container" style="display:none;">
+              <div id="trial-7-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="trial-7-continue" class="continue" style="display:none;">
+              <p style="text-align:center">Press Spacebar to Continue</p>
+          </div>
+          </center>
+      </div>
+
+      <div id="trial-8" class="trial-container hidden" data-screen="10">
+          <center>
+          <div class="trial-video-container">
+              <video id="video-8" width="960" height="540" autoplay preload="auto">
+                  <source src="videos/P3E.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <canvas id="canvas-8" width="960" height="540" class="canvas"></canvas>
+          </div>
+          <div id="trial-8-progress" class="progress-container" style="display:none;">
+              <div id="trial-8-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="trial-8-continue" class="continue" style="display:none;">
+              <p style="text-align:center">Press Spacebar to Continue</p>
+          </div>
+          </center>
+      </div>
+
+      <div id="trial-9" class="trial-container hidden" data-screen="11">
+          <center>
+          <div class="trial-video-container">
+              <video id="video-9" width="960" height="540" autoplay preload="auto">
+                  <source src="videos/S4U.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <canvas id="canvas-9" width="960" height="540" class="canvas"></canvas>
+          </div>
+          <div id="trial-9-progress" class="progress-container" style="display:none;">
+              <div id="trial-9-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="trial-9-continue" class="continue" style="display:none;">
+              <p style="text-align:center">Press Spacebar to Continue</p>
+          </div>
+          </center>
+      </div>
+
+      <div id="trial-10" class="trial-container hidden" data-screen="12">
+          <center>
+          <div class="trial-video-container">
+              <video id="video-10" width="960" height="540" autoplay preload="auto">
+                  <source src="videos/S2E.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <canvas id="canvas-10" width="960" height="540" class="canvas"></canvas>
+          </div>
+          <div id="trial-10-progress" class="progress-container" style="display:none;">
+              <div id="trial-10-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="trial-10-continue" class="continue" style="display:none;">
+              <p style="text-align:center">Press Spacebar to Continue</p>
+          </div>
+          </center>
+      </div>
+
+      <div id="trial-11" class="trial-container hidden" data-screen="13">
+          <center>
+          <div class="trial-video-container">
+              <video id="video-11" width="960" height="540" autoplay preload="auto">
+                  <source src="videos/P4E.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <canvas id="canvas-11" width="960" height="540" class="canvas"></canvas>
+          </div>
+          <div id="trial-11-progress" class="progress-container" style="display:none;">
+              <div id="trial-11-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="trial-11-continue" class="continue" style="display:none;">
+              <p style="text-align:center">Press Spacebar to Continue</p>
+          </div>
+          </center>
+      </div>
+
+      <div id="trial-12" class="trial-container hidden" data-screen="14">
+          <center>
+          <div class="trial-video-container">
+              <video id="video-12" width="960" height="540" autoplay preload="auto">
+                  <source src="videos/S3U.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <canvas id="canvas-12" width="960" height="540" class="canvas"></canvas>
+          </div>
+          <div id="trial-12-progress" class="progress-container" style="display:none;">
+              <div id="trial-12-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="trial-12-continue" class="continue" style="display:none;">
+              <p style="text-align:center">Press Spacebar to Continue</p>
+          </div>
+          </center>
+      </div>
+
+      <div id="trial-13" class="trial-container hidden" data-screen="15">
+          <center>
+          <div class="trial-video-container">
+              <video id="video-13" width="960" height="540" autoplay preload="auto">
+                  <source src="videos/P2U.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <canvas id="canvas-13" width="960" height="540" class="canvas"></canvas>
+          </div>
+          <div id="trial-13-progress" class="progress-container" style="display:none;">
+              <div id="trial-13-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="trial-13-continue" class="continue" style="display:none;">
+              <p style="text-align:center">Press Spacebar to Continue</p>
+          </div>
+          </center>
+      </div>
+
+      <div id="trial-14" class="trial-container hidden" data-screen="16">
+          <center>
+          <div class="trial-video-container">
+              <video id="video-14" width="960" height="540" autoplay preload="auto">
+                  <source src="videos/S5E.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <canvas id="canvas-14" width="960" height="540" class="canvas"></canvas>
+          </div>
+          <div id="trial-14-progress" class="progress-container" style="display:none;">
+              <div id="trial-14-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="trial-14-continue" class="continue" style="display:none;">
+              <p style="text-align:center">Press Spacebar to Continue</p>
+          </div>
+          </center>
+      </div>
+
+      <div id="trial-15" class="trial-container hidden" data-screen="17">
+          <center>
+          <div class="trial-video-container">
+              <video id="video-15" width="960" height="540" autoplay preload="auto">
+                  <source src="videos/S4E.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <canvas id="canvas-15" width="960" height="540" class="canvas"></canvas>
+          </div>
+          <div id="trial-15-progress" class="progress-container" style="display:none;">
+              <div id="trial-15-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="trial-15-continue" class="continue" style="display:none;">
+              <p style="text-align:center">Press Spacebar to Continue</p>
+          </div>
+          </center>
+      </div>
+
+      <div id="trial-16" class="trial-container hidden" data-screen="18">
+          <center>
+          <div class="trial-video-container">
+              <video id="video-16" width="960" height="540" autoplay preload="auto">
+                  <source src="videos/P1E.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <canvas id="canvas-16" width="960" height="540" class="canvas"></canvas>
+          </div>
+          <div id="trial-16-progress" class="progress-container" style="display:none;">
+              <div id="trial-16-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="trial-16-continue" class="continue" style="display:none;">
+              <p style="text-align:center">Press Spacebar to Continue</p>
+          </div>
+          </center>
+      </div>
+
+      <div id="trial-17" class="trial-container hidden" data-screen="19">
+          <center>
+          <div class="trial-video-container">
+              <video id="video-17" width="960" height="540" autoplay preload="auto">
+                  <source src="videos/P3U.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <canvas id="canvas-17" width="960" height="540" class="canvas"></canvas>
+          </div>
+          <div id="trial-17-progress" class="progress-container" style="display:none;">
+              <div id="trial-17-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="trial-17-continue" class="continue" style="display:none;">
+              <p style="text-align:center">Press Spacebar to Continue</p>
+          </div>
+          </center>
+      </div>
+
+      <div id="trial-18" class="trial-container hidden" data-screen="20">
+          <center>
+          <div class="trial-video-container">
+              <video id="video-18" width="960" height="540" autoplay preload="auto">
+                  <source src="videos/S1E.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+              <canvas id="canvas-18" width="960" height="540" class="canvas"></canvas>
+          </div>
+          <div id="trial-18-progress" class="progress-container" style="display:none;">
+              <div id="trial-18-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="trial-18-continue" class="continue" style="display:none;">
+              <p style="text-align:center">Press Spacebar to Continue</p>
+          </div>
+          </center>
+      </div>
+  </div>
+
+
+
+
+
+
+    <script>
+    /////////////////////////////
+    // Main Screen Transitions //
+    /////////////////////////////
+
+// Variables to track the current screen and completion status
+let currentScreen = 0;
+let isScreenCompleted = false;
+
+function nextScreen() {
+  console.log('nextScreen called');
+  if (!isScreenCompleted) return;
+
+  const screens = document.querySelectorAll('[data-screen]');
+  console.log(`Current screen: ${currentScreen}`);
+  screens[currentScreen].classList.add('hidden'); // Hide the current screen
+  currentScreen++; // Increment the screen counter
+
+  if (currentScreen < screens.length) {
+    screens[currentScreen].classList.remove('hidden'); // Show the next screen
+
+    const currentVideo = screens[currentScreen].querySelector('video');
+    if (currentVideo) {
+      currentVideo.currentTime = 0;
+      currentVideo.play();
+      currentVideo.muted = false; // Unmute the video when the screen is loaded
+    }
+
+    // Call the setupProbes function when the respective trial starts and set the probe controller
+    if (currentScreen === 3) {
+        runTrialWithProbes('video-1', 'canvas-1');
+        } else if (currentScreen === 4) {
+        runTrialWithProbes('video-2', 'canvas-2');
+        } else if (currentScreen === 5) {
+        runTrialWithProbes('video-3', 'canvas-3');
+        } else if (currentScreen === 6) {
+        runTrialWithProbes('video-4', 'canvas-4');
+        } else if (currentScreen === 7) {
+        runTrialWithProbes('video-5', 'canvas-5');
+        } else if (currentScreen === 8) {
+        runTrialWithProbes('video-6', 'canvas-6');
+        } else if (currentScreen === 9) {
+        runTrialWithProbes('video-7', 'canvas-7');
+        } else if (currentScreen === 10) {
+        runTrialWithProbes('video-8', 'canvas-8');
+        } else if (currentScreen === 11) {
+        runTrialWithProbes('video-9', 'canvas-9');
+        } else if (currentScreen === 12) {
+        runTrialWithProbes('video-10', 'canvas-10');
+        } else if (currentScreen === 13) {
+        runTrialWithProbes('video-11', 'canvas-11');
+        } else if (currentScreen === 14) {
+        runTrialWithProbes('video-12', 'canvas-12');
+        } else if (currentScreen === 15) {
+        runTrialWithProbes('video-13', 'canvas-13');
+        } else if (currentScreen === 16) {
+        runTrialWithProbes('video-14', 'canvas-14');
+        } else if (currentScreen === 17) {
+        runTrialWithProbes('video-15', 'canvas-15');
+        } else if (currentScreen === 18) {
+        runTrialWithProbes('video-16', 'canvas-16');
+        } else if (currentScreen === 19) {
+        runTrialWithProbes('video-17', 'canvas-17');
+        } else if (currentScreen === 20) {
+        runTrialWithProbes('video-18', 'canvas-18');
+        }
+
+
+    isScreenCompleted = false; // Reset the completion status for the new screen
+    setScreenCompletion(currentScreen); // Set the completion criteria for the new screen
+  } else {
+    console.log("Experiment finished");
+  }
+}
+
+document.addEventListener('keydown', function (event) {
+  if (event.code === 'Space') {
+    // Check if the "Press Spacebar to Continue" text is visible
+    const continueText = document.querySelector(`[data-screen="${currentScreen}"] .continue`);
+    if (continueText && continueText.offsetParent !== null) {
+      nextScreen();
+    } else {
+      // Log the spacebar press
+      const currentTime = new Date().getTime();
+      console.log(`Spacebar pressed at ${currentTime}`);
+    }
+  }
+});
+
+
+// Function to set the screen completion criteria based on the screen index
+function setScreenCompletion(screenIndex) {
+  const continueText = document.querySelector(`[data-screen="${screenIndex}"] .continue`);
+
+  switch (screenIndex) {
+    case 0:
+      setTimeout(function() {
+        isScreenCompleted = true;
+        continueText.style.display = 'block';
+      }, 0);
+      break;
+
+    case 1:
+      setTimeout(function() {
+        isScreenCompleted = true;
+        continueText.style.display = 'block';
+      }, 1000);
+      break;
+
+    case 2:
+        setTimeout(function() {
+            isScreenCompleted = true;
+            continueText.style.display = 'block';
+        }, 1000);
+    
+    
+    case 3:
+      const trial1Video = document.querySelector('#video-1');
+      const trial1Progress = document.querySelector('#trial-1-progress');
+      trial1Video.addEventListener('ended', function() {
+        trial1Video.parentNode.style.display = 'none';
+        trial1Progress.style.display = 'block';
+
+        setTimeout(() => {
+            continueText.style.display = 'block';
+            isScreenCompleted = true;
+        }, 1000);
+        });
+
+        break;
+    
+    case 4:
+        const trial2Video = document.querySelector('#video-2');
+        const trial2Progress = document.querySelector('#trial-2-progress');
+        trial2Video.addEventListener('ended', function() {
+            trial2Video.parentNode.style.display = 'none';
+            trial2Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            break;
+        
+    case 5:
+        const trial3Video = document.querySelector('#video-3');
+        const trial3Progress = document.querySelector('#trial-3-progress');
+        trial3Video.addEventListener('ended', function() {
+            trial3Video.parentNode.style.display = 'none';
+            trial3Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            break;
+    
+    case 6:
+        const trial4Video = document.querySelector('#video-4');
+        const trial4Progress = document.querySelector('#trial-4-progress');
+        trial4Video.addEventListener('ended', function() {
+            trial4Video.parentNode.style.display = 'none';
+            trial4Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            break;
+        
+    case 7:
+        const trial5Video = document.querySelector('#video-5');
+        const trial5Progress = document.querySelector('#trial-5-progress');
+        trial5Video.addEventListener('ended', function() {
+            trial5Video.parentNode.style.display = 'none';
+            trial5Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            break;
+    
+    case 8:
+        const trial6Video = document.querySelector('#video-6');
+        const trial6Progress = document.querySelector('#trial-6-progress');
+        trial6Video.addEventListener('ended', function() {
+            trial6Video.parentNode.style.display = 'none';
+            trial6Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            break;
+    
+    case 9:
+        const trial7Video = document.querySelector('#video-7');
+        const trial7Progress = document.querySelector('#trial-7-progress');
+        trial7Video.addEventListener('ended', function() {
+            trial7Video.parentNode.style.display = 'none';
+            trial7Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            break;
+    
+    case 10:
+        const trial8Video = document.querySelector('#video-8');
+        const trial8Progress = document.querySelector('#trial-8-progress');
+        trial8Video.addEventListener('ended', function() {
+            trial8Video.parentNode.style.display = 'none';
+            trial8Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            break;
+    
+    case 11:
+        const trial9Video = document.querySelector('#video-9');
+        const trial9Progress = document.querySelector('#trial-9-progress');
+        trial9Video.addEventListener('ended', function() {
+            trial9Video.parentNode.style.display = 'none';
+            trial9Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            break;
+
+    case 12:
+        const trial10Video = document.querySelector('#video-10');
+        const trial10Progress = document.querySelector('#trial-10-progress');
+        trial10Video.addEventListener('ended', function() {
+            trial10Video.parentNode.style.display = 'none';
+            trial10Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            break;
+    
+    case 13:
+        const trial11Video = document.querySelector('#video-11');
+        const trial11Progress = document.querySelector('#trial-11-progress');
+        trial11Video.addEventListener('ended', function() {
+            trial11Video.parentNode.style.display = 'none';
+            trial11Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            break;
+
+    case 14:
+        const trial12Video = document.querySelector('#video-12');
+        const trial12Progress = document.querySelector('#trial-12-progress');
+        trial12Video.addEventListener('ended', function() {
+            trial12Video.parentNode.style.display = 'none';
+            trial12Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            break;
+    
+    case 15:
+        const trial13Video = document.querySelector('#video-13');
+        const trial13Progress = document.querySelector('#trial-13-progress');
+        trial13Video.addEventListener('ended', function() {
+            trial13Video.parentNode.style.display = 'none';
+            trial13Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            break;
+
+    case 16:
+        const trial14Video = document.querySelector('#video-14');
+        const trial14Progress = document.querySelector('#trial-14-progress');
+        trial14Video.addEventListener('ended', function() {
+            trial14Video.parentNode.style.display = 'none';
+            trial14Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            break;
+
+    case 17:
+        const trial15Video = document.querySelector('#video-15');
+        const trial15Progress = document.querySelector('#trial-15-progress');
+        trial15Video.addEventListener('ended', function() {
+            trial15Video.parentNode.style.display = 'none';
+            trial15Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            break;
+
+    case 18:
+        const trial16Video = document.querySelector('#video-16');
+        const trial16Progress = document.querySelector('#trial-16-progress');
+        trial16Video.addEventListener('ended', function() {
+            trial16Video.parentNode.style.display = 'none';
+            trial16Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            break;
+
+    case 19:
+        const trial17Video = document.querySelector('#video-17');
+        const trial17Progress = document.querySelector('#trial-17-progress');
+        trial17Video.addEventListener('ended', function() {
+            trial17Video.parentNode.style.display = 'none';
+            trial17Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            break;
+
+    case 20:
+        const trial18Video = document.querySelector('#video-18');
+        const trial18Progress = document.querySelector('#trial-18-progress');
+        trial18Video.addEventListener('ended', function() {
+            trial18Video.parentNode.style.display = 'none';
+            trial18Progress.style.display = 'block';
+    
+            setTimeout(() => {
+                continueText.style.display = 'block';
+                isScreenCompleted = true;
+            }, 1000);
+            });
+
+            break;
+
+    default:
+      // Default behavior for screens without specific completion criteria
+      setTimeout(function() {
+        isScreenCompleted = true;
+        continueText.style.display = 'block';
+      }, 30000);
+  }
+}
+
+
+// Set the completion criteria for the initial screen
+setScreenCompletion(currentScreen);
+
+
+</script>
+</body>
+</html>
+
+
+
