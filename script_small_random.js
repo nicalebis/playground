@@ -91,6 +91,7 @@ function loadVideo(index) {
   video.src = videos[index];
   video.load();
   video.play();
+  video.muted = false;
   video.addEventListener('loadedmetadata', resizeWrapper);
   window.runTrialWithProbes('video', 'canvas', { once: true }); // Add this line to run the probe task for each video
 
@@ -104,6 +105,7 @@ function loadVideo(index) {
 
 function videoEndedHandler() {
     video.removeEventListener('loadedmetadata', resizeWrapper);
+    video.muted = true;
     videoScreen.classList.add('hidden');
     inputScreen.classList.remove('hidden');
     isVideoScreenVisible = false;
@@ -160,4 +162,4 @@ function handleInputScreenKeyPress(e) {
       nextVideo();
     }
   }
-  
+ 
