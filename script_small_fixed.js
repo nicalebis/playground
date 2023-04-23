@@ -20,7 +20,7 @@ const videos = [
   ];
   
   const texts = [
-  'Did the previous video showed a toy ball?', 
+  'Did the previous video show a toy ball?', 
 	'Did the previous video show a red rectangle?', 
 	'Did the previous video show a train?', 
 	'Did the previous video show an arm wearing a watch?', 
