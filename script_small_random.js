@@ -20,25 +20,26 @@ const videos = [
   ];
   
   const texts = [
-  'How confident are you that the previous video showed a toy ball?', 
-	'How confident are you that the previous video showed a red rectangle?', 
-	'How confident are you that the previous video showed a train?', 
-	'How confident are you that the previous video showed an arm wearing a watch?', 
-	'How confident are you that the previous video showed a red box?', 
-	'How confident are you that the previous video showed a toy train?', 
-  'How confident are you that the previous video showed a striped object?', 
-	'How confident are you that the previous video showed a blue box?', 
-	'How confident are you that the previous video showed a lion?', 
-	'How confident are you that the previous video showed strawberries?',
-	'How confident are you that the previous video showed a person with a logo on their shirt?', 
-	'How confident are you that the previous video showed a clear pitcher of water?',
-	'How confident are you that the previous video showed a toy ball?', 
-	'How confident are you that the previous video showed a toy train?',
-	'How confident are you that the previous video showed a person wearing red?', 
-	'How confident are you that the previous video showed a person eating?',
-	'How confident are you that the previous video showed a person eating?', 
-	'How confident are you that the previous video showed an apple?'	
+  'Did the previous video show a toy ball?', 
+	'Did the previous video show a red rectangle?', 
+	'Did the previous video show a train?', 
+	'Did the previous video show an arm wearing a watch?', 
+	'Did the previous video show a red box?', 
+	'Did the previous video show a toy train?', 
+  'Did the previous video show a striped object?', 
+	'Did the previous video show a blue box?', 
+	'Did the previous video show a lion?', 
+	'Did the previous video show strawberries?',
+	'Did the previous video show a person with a logo on their shirt?', 
+	'Did the previous video show a clear pitcher of water?',
+	'Did the previous video show a toy ball?', 
+	'Did the previous video show a toy train?',
+	'Did the previous video show a person wearing red?', 
+	'Did the previous video show a person eating?',
+	'Did the previous video show a person eating?', 
+	'Did the previous video show an apple?'	
   ];
+
   
   const trialIndices = Array.from({ length: videos.length }, (_, i) => i);
   let currentTrialIndex = -1;
@@ -68,7 +69,8 @@ const videos = [
   // Fallback in case no valid index is found
   return Math.floor(Math.random() * trialIndices.length);
 }
-  
+
+
 function startProbes() {
   runTrialWithProbes('video', 'canvas');
 }
@@ -106,54 +108,38 @@ function loadVideo(index) {
 }
 
 function videoEndedHandler() {
-  video.removeEventListener('loadedmetadata', resizeWrapper); // Add this line
-  videoScreen.classList.add('hidden');
-  inputScreen.classList.remove('hidden');
-  isVideoScreenVisible = false;
-}
+    video.removeEventListener('loadedmetadata', resizeWrapper);
+    videoScreen.classList.add('hidden');
+    inputScreen.classList.remove('hidden');
+    isVideoScreenVisible = false;
+    isInputScreenVisible = true;
+  
+    // Remove the current video from the list
+    videos.splice(currentVideoIndex - 1, 1);
+    texts.splice(currentVideoIndex - 1, 1);
+  }
 
 function loadText(index) {
     text.textContent = texts[index];
 }
 
 function nextVideo() {
-    currentTrialIndex = getRandomTrialIndex();
-    loadVideo(currentTrialIndex);
-    loadText(currentTrialIndex);
+  currentTrialIndex = getRandomTrialIndex();
+    loadVideo(currentVideoIndex);
+    loadText(currentVideoIndex);
+  
     trialIndices.splice(currentTrialIndex, 1);
-
+  
     video.addEventListener('playing', startProbes, { once: true });
+
+    inputScreen.classList.add('hidden');
+  videoScreen.classList.remove('hidden');
+  isInputScreenVisible = false;
+  document.removeEventListener('keydown', handleInputScreenKeyPress);
   }
 
   let spacebarPressed = false;
 
-  document.addEventListener('keydown', (event) => {
-  if (inputScreen.classList.contains('hidden')) {
-    return; // If inputScreen is hidden, exit the event listener
-  }
-  if (event.key >= '1' && event.key <= '5') {
-    slider.value = event.key;
-  } else if (event.code === 'Space' && !spacebarPressed) {
-    spacebarPressed = true;
-    inputScreen.classList.add('hidden');
-    videoScreen.classList.remove('hidden');
-
-    // Record the slider position and checkbox status
-    const sliderValue = slider.value;
-    const notApplicableChecked = document.getElementById('notApplicable').checked;
-    console.log('Slider value:', sliderValue);
-    console.log('Not Applicable checked:', notApplicableChecked);
-
-    // Call nextVideo
-    nextVideo();
-  }
-});
-
-document.addEventListener('keyup', (event) => {
-  if (event.code === 'Space') {
-    spacebarPressed = false;
-  }
-});
 
 startInstructionsButton.addEventListener('click', () => {
     welcomeScreen.classList.add('hidden');
@@ -170,5 +156,21 @@ video.addEventListener('ended', () => {
   videoScreen.classList.add('hidden');
   inputScreen.classList.remove('hidden');
   isVideoScreenVisible = false;
+  isInputScreenVisible = true;
+  document.addEventListener('keydown', handleInputScreenKeyPress);
 });
 
+
+
+let isInputScreenVisible = false;
+
+function handleInputScreenKeyPress(e) {
+    if (!isInputScreenVisible) return;
+    if (e.key === 'f' || e.key === 'j') {
+      // Start the next trial
+      inputScreen.classList.add('hidden');
+      videoScreen.classList.remove('hidden');
+      nextVideo();
+    }
+  }
+  
