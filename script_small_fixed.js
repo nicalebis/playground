@@ -45,11 +45,6 @@ function startProbes() {
   runTrialWithProbes('video', 'canvas');
 }
 
-video.addEventListener('ended', () => {
-    videoScreen.classList.add('hidden');
-    inputScreen.classList.remove('hidden');
-});
-
 let currentVideoIndex = 0;
 
 function resizeWrapper() {
@@ -87,6 +82,8 @@ function videoEndedHandler() {
     // Remove the current video from the list
     videos.splice(currentVideoIndex - 1, 1);
     texts.splice(currentVideoIndex - 1, 1);
+
+    document.addEventListener('keydown', handleInputScreenKeyPress);
   }
 
 function loadText(index) {
@@ -122,16 +119,6 @@ startTrialsButton.addEventListener('click', () => {
   videoScreen.classList.remove('hidden');
   nextVideo();
 });
-
-video.addEventListener('ended', () => {
-  videoScreen.classList.add('hidden');
-  inputScreen.classList.remove('hidden');
-  isVideoScreenVisible = false;
-  isInputScreenVisible = true;
-  document.addEventListener('keydown', handleInputScreenKeyPress);
-});
-
-
 
 let isInputScreenVisible = false;
 
