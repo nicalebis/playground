@@ -80,10 +80,6 @@ function videoEndedHandler() {
     inputScreen.classList.remove('hidden');
     isVideoScreenVisible = false;
     isInputScreenVisible = true;
-  
-    // Remove the current video from the list
-    videos.splice(currentVideoIndex - 1, 1);
-    texts.splice(currentVideoIndex - 1, 1);
 
     document.addEventListener('keydown', handleInputScreenKeyPress);
   }
