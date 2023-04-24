@@ -8,25 +8,8 @@ function getContrastingColor(r, g, b) {
   return `rgb(${255 - r}, ${255 - g}, ${255 - b})`;
 }
 
-function drawProbe(ctx, size, x, y, shape, bgData) {
-    const data = bgData.data;
-    let r = 0;
-    let g = 0;
-    let b = 0;
-    let count = 0;
-  
-    for (let i = 0; i < data.length; i += 4) {
-      r += data[i];
-      g += data[i + 1];
-      b += data[i + 2];
-      count++;
-    }
-  
-    r /= count;
-    g /= count;
-    b /= count;
-  
-    const probeColor = getContrastingColor(r, g, b);
+function drawProbe(ctx, size, x, y, shape) {
+    const probeColor = 'rgb(224, 176, 255)';
   
     ctx.strokeStyle = 'rgba(0, 0, 0, 0)';
     ctx.beginPath();
@@ -76,7 +59,7 @@ function runTrialWithProbes(videoId, canvasId, config = {}) {
   
     clearCanvas(ctx);
   
-    let x, y, bgData, probeColor, shape;
+    let x, y, bgData, shape;
     let numBlackPixels = 0;
   
     do {
@@ -88,38 +71,37 @@ function runTrialWithProbes(videoId, canvasId, config = {}) {
       ctx.arc(x, y, 10, 0, 2 * Math.PI);
       ctx.stroke();
   
-      bgData = ctx.getImageData(x - 15, y - 15, 30, 30);
+      bgData = ctx.getImageData(x - 8, y - 8, 16, 16);
   
       let numBlackPixels = 0;
       for (let i = 0; i < bgData.data.length; i += 4) {
         if (bgData.data[i] === 0 && bgData.data[i + 1] === 0 && bgData.data[i + 2] === 0) {
-            numBlackPixels++;
+          numBlackPixels++;
         }
       }
-    } while (numBlackPixels > 450);
+    } while (numBlackPixels > 128);
   
     shape = Math.random() < 0.5 ? 'F' : 'J'; // Use F and J as shapes
-    drawProbe(ctx, probeSize, x, y, shape, bgData);
-
+    drawProbe(ctx, probeSize, x, y, shape); // Removed bgData parameter
+  
     lastProbeTime = video.currentTime;
-lastProbeShape = shape;
-lastProbeX = x;
-lastProbeY = y;
-
-const meanDelay = 1600;
-const sdDelay = 400;
-const delay = Math.max(0, Math.round(gaussianRandom(meanDelay, sdDelay)));
-
-// clear the previous timeout if it exists
-if (probeTimeout) {
-  clearTimeout(probeTimeout);
-}
-
-probeTimeout = setTimeout(showProbe, delay);
-
-probeVisible = true;
-
-}
+    lastProbeShape = shape;
+    lastProbeX = x;
+    lastProbeY = y;
+  
+    const meanDelay = 1600;
+    const sdDelay = 400;
+    const delay = Math.max(0, Math.round(gaussianRandom(meanDelay, sdDelay)));
+  
+    // clear the previous timeout if it exists
+    if (probeTimeout) {
+      clearTimeout(probeTimeout);
+    }
+  
+    probeTimeout = setTimeout(showProbe, delay);
+  
+    probeVisible = true;
+  }
 
 function hideProbeAndScheduleNext() {
 if (!probeVisible || !isVideoScreenVisible) return;
