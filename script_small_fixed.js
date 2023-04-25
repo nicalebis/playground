@@ -14,14 +14,13 @@ let probeInterval;
 const PROBE_INTERVAL_MS = 100;
 
 const videos = [
-    'videos/P1E.mp4', 'videos/P1U.mp4', 'videos/P2E.mp4', 'videos/P2U.mp4', 'videos/P3E.mp4', 'videos/P3U.mp4', 
+    'videos/P1E.mp4', 'videos/P2E.mp4', 'videos/P2U.mp4', 'videos/P3E.mp4', 'videos/P3U.mp4', 
     'videos/P4E.mp4', 'videos/P4U.mp4', 'videos/S1E.mp4', 'videos/S1U.mp4', 'videos/S2E.mp4', 'videos/S2U.mp4', 
     'videos/S3E.mp4', 'videos/S3U.mp4', 'videos/S4E.mp4', 'videos/S4U.mp4', 'videos/S5E.mp4', 'videos/S5U.mp4'
   ];
   
   const texts = [
   'Did the previous video show a toy ball?', 
-	'Did the previous video show a red rectangle?', 
 	'Did the previous video show a train?', 
 	'Did the previous video show an arm wearing a watch?', 
 	'Did the previous video show a red box?', 
@@ -57,21 +56,25 @@ function resizeWrapper() {
 }
 
 function loadVideo(index) {
-  video.removeEventListener('ended', videoEndedHandler); // Remove the old event listener
-  video.src = videos[index];
-  video.load();
-  video.play();
-  video.muted = false;
-  video.addEventListener('loadedmetadata', resizeWrapper);
-  window.runTrialWithProbes('video', 'canvas', { once: true }); // Add this line to run the probe task for each video
-
-  const ctx = canvas.getContext('2d');
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  isVideoScreenVisible = true;
+    video.removeEventListener('ended', videoEndedHandler); // Remove the old event listener
+    video.src = videos[index];
+    video.load();
+    video.play();
+    video.muted = false;
   
-  video.addEventListener('ended', videoEndedHandler); // Add the new event listener
-}
+    // Re-add the loadedmetadata event listener
+    video.removeEventListener('loadedmetadata', resizeWrapper);
+    video.addEventListener('loadedmetadata', resizeWrapper);
+  
+    window.runTrialWithProbes('video', 'canvas', { once: true }); // Add this line to run the probe task for each video
+  
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+    isVideoScreenVisible = true;
+  
+    video.addEventListener('ended', videoEndedHandler); // Add the new event listener
+  }
 
 function videoEndedHandler() {
     video.removeEventListener('loadedmetadata', resizeWrapper);
