@@ -14,9 +14,9 @@ let probeInterval;
 const PROBE_INTERVAL_MS = 100;
 
 const videos = [
-    'videos_small/P1E.mp4', 'videos_small/P1U.mp4', 'videos_small/P2E.mp4', 'videos_small/P2U.mp4', 'videos_small/P3E.mp4', 'videos_small/P3U.mp4', 
-    'videos_small/P4E.mp4', 'videos_small/P4U.mp4', 'videos_small/S1E.mp4', 'videos_small/S1U.mp4', 'videos_small/S2E.mp4', 'videos_small/S2U.mp4', 
-    'videos_small/S3E.mp4', 'videos_small/S3U.mp4', 'videos_small/S4E.mp4', 'videos_small/S4U.mp4', 'videos_small/S5E.mp4', 'videos_small/S5U.mp4'
+    'videos/P1E.mp4', 'videos/P1U.mp4', 'videos/P2E.mp4', 'videos/P2U.mp4', 'videos/P3E.mp4', 'videos/P3U.mp4', 
+    'videos/P4E.mp4', 'videos/P4U.mp4', 'videos/S1E.mp4', 'videos/S1U.mp4', 'videos/S2E.mp4', 'videos/S2U.mp4', 
+    'videos/S3E.mp4', 'videos/S3U.mp4', 'videos/S4E.mp4', 'videos/S4U.mp4', 'videos/S5E.mp4', 'videos/S5U.mp4'
   ];
   
   const texts = [
