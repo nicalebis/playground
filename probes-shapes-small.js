@@ -1,14 +1,37 @@
-const probeSize = 6;
+const probeSize = 10;
 
 function getRandom(min, max) {
   return Math.random() * (max - min) + min;
 }
 
 function getContrastingColor(r, g, b) {
-  return `rgb(${255 - r}, ${255 - g}, ${255 - b})`;
+  const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
+  return luminance > 128 ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)';
 }
 
-function drawProbe(ctx, size, x, y, shape, bgData) {
+function drawProbe(ctx, size, x, y, shape, probeColor) {
+  ctx.strokeStyle = 'rgba(0, 0, 0, 0)';
+  ctx.beginPath();
+  ctx.arc(x, y, 15, 0, 2 * Math.PI);
+  ctx.stroke();
+
+  ctx.fillStyle = probeColor;
+  ctx.beginPath();
+
+  if (shape === 'square') {
+    ctx.fillRect(x - size / 2, y - size / 2, size, size);
+  } else if (shape === 'triangle') {
+    ctx.moveTo(x - size / 2, y + size / 2);
+    ctx.lineTo(x + size / 2, y + size / 2);
+    ctx.lineTo(x, y - size / 2);
+    ctx.closePath();
+  }
+
+  ctx.fill();
+}
+
+function updateProbeColor(ctx, x, y, size, shape) {
+  const bgData = ctx.getImageData(x - 6, y - 6, 12, 12);
   const data = bgData.data;
   let r = 0;
   let g = 0;
@@ -28,11 +51,6 @@ function drawProbe(ctx, size, x, y, shape, bgData) {
 
   const probeColor = getContrastingColor(r, g, b);
 
-  ctx.strokeStyle = 'rgba(0, 0, 0, 0)';
-  ctx.beginPath();
-  ctx.arc(x, y, 15, 0, 2 * Math.PI);
-  ctx.stroke();
-
   ctx.fillStyle = probeColor;
   if (shape === 'square') {
     ctx.fillRect(x - size / 2, y - size / 2, size, size);
@@ -46,6 +64,13 @@ function drawProbe(ctx, size, x, y, shape, bgData) {
   }
 }
 
+function drawVideoFrame(video, videoCanvas) {
+  const videoCtx = videoCanvas.getContext('2d');
+  videoCanvas.width = video.videoWidth;
+  videoCanvas.height = video.videoHeight;
+  videoCtx.drawImage(video, 0, 0, videoCanvas.width, videoCanvas.height);
+}
+
 function gaussianRandom(mean, sd) {
   const u = Math.random();
   const v = Math.random();
@@ -55,6 +80,29 @@ function gaussianRandom(mean, sd) {
 
 function clearCanvas(ctx) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+}
+
+function updateProbeColor(videoCanvas, x, y) {
+  const videoCtx = videoCanvas.getContext('2d');
+  const bgData = videoCtx.getImageData(x - 8, y - 8, 16, 16);
+  const data = bgData.data;
+  let r = 0;
+  let g = 0;
+  let b = 0;
+  let count = 0;
+
+  for (let i = 0; i < data.length; i += 4) {
+    r += data[i];
+    g += data[i + 1];
+    b += data[i + 2];
+    count++;
+  }
+
+  r /= count;
+  g /= count;
+  b /= count;
+
+  return getContrastingColor(r, g, b);
 }
 
 let isVideoScreenVisible = false;
@@ -77,50 +125,33 @@ function runTrialWithProbes(videoId, canvasId) {
 
     clearCanvas(ctx);
 
-    let x, y, bgData, probeColor, shape;
-    let numBlackPixels = 0;
-    
-    do {
-      x = Math.random() * (ctx.canvas.width - 2 * probeSize) + probeSize;
-      y = Math.random() * (ctx.canvas.height - 2 * probeSize) + probeSize;
+    let x, y, shape;
 
-      ctx.strokeStyle = 'rgba(0, 0, 0, 0)';
-      ctx.beginPath();
-      ctx.arc(x, y, 10, 0, 2 * Math.PI);
-      ctx.stroke();
+    x = Math.random() * (ctx.canvas.width - 2 * probeSize) + probeSize;
+    y = Math.random() * (ctx.canvas.height - 2 * probeSize) + probeSize;
 
-      bgData = ctx.getImageData(x - 15, y - 15, 30, 30);
-
-      let numBlackPixels = 0;
-      for (let i = 0; i < bgData.data.length; i += 4) {
-        if (bgData.data[i] === 0 && bgData.data[i + 1] === 0 && bgData.data[i + 2] === 0) {
-            numBlackPixels++;
-        }
-      }
-    } while (numBlackPixels > 450);
-
-    shape = Math.random() < 0.5 ? 'square' : 'triangle';
-    drawProbe(ctx, probeSize, x, y, shape, bgData);
+    shape = Math.random() < 0.5 ? 'square' : 'triangle'; // Use square and triangle as shapes
+    drawVideoFrame(video, videoCanvas);
+    const probeColor = updateProbeColor(videoCanvas, x, y);
+    drawProbe(ctx, probeSize, x, y, shape, probeColor);
 
     lastProbeTime = video.currentTime;
-lastProbeShape = shape;
-lastProbeX = x;
-lastProbeY = y;
+    lastProbeShape = shape;
+    lastProbeX = x;
+    lastProbeY = y;
 
-const meanDelay = 1600;
-const sdDelay = 400;
-const delay = Math.max(0, Math.round(gaussianRandom(meanDelay, sdDelay)));
+    const meanDelay = 1600;
+    const sdDelay = 400;
+    const delay = Math.max(0, Math.round(gaussianRandom(meanDelay, sdDelay)));
 
-// clear the previous timeout if it exists
-if (probeTimeout) {
-  clearTimeout(probeTimeout);
-}
+    if (probeTimeout) {
+      clearTimeout(probeTimeout);
+    }
 
-probeTimeout = setTimeout(showProbe, delay);
+    probeTimeout = setTimeout(showProbe, delay);
 
-probeVisible = true;
-
-}
+    probeVisible = true;
+  }
 
 function hideProbeAndScheduleNext() {
 if (!probeVisible || !isVideoScreenVisible) return;
@@ -147,7 +178,8 @@ function handleKeyPress(e) {
     const currentTime = video.currentTime;
     const rt = currentTime - lastProbeTime;
     const keyPressed = e.key;
-    const isCorrect = (keyPressed === 'f' && lastProbeShape === 'square') || (keyPressed === 'j' && lastProbeShape === 'triangle');
+    const isCorrect = (e.key === 'f' && lastProbeShape === 'square') || (e.key === 'j' && lastProbeShape === 'triangle');
+
 
     results.push({
       rt: rt,
@@ -189,3 +221,4 @@ document.addEventListener('keydown', handleKeyPress);
 }
 
 window.runTrialWithProbes = runTrialWithProbes;
+
