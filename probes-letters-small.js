@@ -10,7 +10,6 @@ function getContrastingColor(r, g, b) {
 }
 
 function drawProbe(ctx, size, x, y, shape, probeColor) {
-  
     ctx.strokeStyle = 'rgba(0, 0, 0, 0)';
     ctx.beginPath();
     ctx.arc(x, y, 15, 0, 2 * Math.PI);
@@ -126,9 +125,14 @@ function runTrialWithProbes(videoId, canvasId, config = {}) {
     if (probeTimeout) {
       clearTimeout(probeTimeout);
     }
-  
     probeTimeout = setTimeout(showProbe, delay);
-  
+
+    probeDisappearTimeout = setTimeout(() => {
+      if (probeVisible) {
+        hideProbeAndScheduleNext();
+      }
+    }, 4000);
+
     probeVisible = true;
   }
 
@@ -145,6 +149,10 @@ const delay = Math.max(0, Math.round(gaussianRandom(meanDelay, sdDelay)));
 // clear the previous timeout if it exists
 if (probeTimeout) {
   clearTimeout(probeTimeout);
+}
+
+if (probeDisappearTimeout) {
+  clearTimeout(probeDisappearTimeout);
 }
 
 probeTimeout = setTimeout(showProbe, delay);
@@ -180,16 +188,20 @@ function handleKeyPress(e) {
       clearTimeout(probeTimeout);
     }
 
+    if (probeDisappearTimeout) {
+      clearTimeout(probeDisappearTimeout);
+    }
+
     hideProbeAndScheduleNext();
   }
 }
 
 const showProbeOnPlay = () => {
     setTimeout(showProbe, 2500);
-  };
-  
-  video.removeEventListener('play', showProbeOnPlay);
-  video.addEventListener('play', showProbeOnPlay, { once: config.once });
+  };  
+video.removeEventListener('play', showProbeOnPlay);
+
+video.addEventListener('play', showProbeOnPlay, { once: config.once });
 
 
 video.addEventListener('ended', () => {
