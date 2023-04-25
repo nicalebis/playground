@@ -14,13 +14,14 @@ let probeInterval;
 const PROBE_INTERVAL_MS = 100;
 
 const videos = [
-    'videos/P1E.mp4', 'videos/P2E.mp4', 'videos/P2U.mp4', 'videos/P3E.mp4', 'videos/P3U.mp4', 
-    'videos/P4E.mp4', 'videos/P4U.mp4', 'videos/S1E.mp4', 'videos/S1U.mp4', 'videos/S2E.mp4', 'videos/S2U.mp4', 
-    'videos/S3E.mp4', 'videos/S3U.mp4', 'videos/S4E.mp4', 'videos/S4U.mp4', 'videos/S5E.mp4', 'videos/S5U.mp4'
+    'videos_small/P1E.mp4', 'videos_small/P1U.mp4', 'videos_small/P2E.mp4', 'videos_small/P2U.mp4', 'videos_small/P3E.mp4', 'videos_small/P3U.mp4', 
+    'videos_small/P4E.mp4', 'videos_small/P4U.mp4', 'videos_small/S1E.mp4', 'videos_small/S1U.mp4', 'videos_small/S2E.mp4', 'videos_small/S2U.mp4', 
+    'videos_small/S3E.mp4', 'videos_small/S3U.mp4', 'videos_small/S4E.mp4', 'videos_small/S4U.mp4', 'videos_small/S5E.mp4', 'videos_small/S5U.mp4'
   ];
   
   const texts = [
   'Did the previous video show a toy ball?', 
+	'Did the previous video show a red rectangle?', 
 	'Did the previous video show a train?', 
 	'Did the previous video show an arm wearing a watch?', 
 	'Did the previous video show a red box?', 
@@ -48,12 +49,13 @@ let currentVideoIndex = 0;
 
 function resizeWrapper() {
   const videoWrapper = document.getElementById('video-wrapper');
-  videoWrapper.style.width = `${video.videoWidth}px`;
-  videoWrapper.style.height = `${video.videoHeight}px`;
+  videoWrapper.style.width = `${video.videoWidth/2}px`; // set the video wrapper width to half of its original width
+  videoWrapper.style.height = `${video.videoHeight/2}px`; // set the video wrapper height to half of its original height
   // Set canvas dimensions to match the video dimensions
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
+  canvas.width = video.videoWidth/2; // set the canvas width to half of its original width
+  canvas.height = video.videoHeight/2; // set the canvas height to half of its original height
 }
+
 
 function loadVideo(index) {
     video.removeEventListener('ended', videoEndedHandler); // Remove the old event listener
@@ -61,6 +63,8 @@ function loadVideo(index) {
     video.load();
     video.play();
     video.muted = false;
+    video.style.width = '100%';
+    video.style.height = '100%';
   
     // Re-add the loadedmetadata event listener
     video.removeEventListener('loadedmetadata', resizeWrapper);
