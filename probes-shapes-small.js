@@ -107,12 +107,12 @@ function updateProbeColor(videoCanvas, x, y) {
 
 function createVideoCanvas() {
   const videoCanvas = document.createElement('canvas');
+  videoCanvas.id = 'video-canvas'; // Set the ID
   videoCanvas.style.position = 'absolute';
   videoCanvas.style.top = '0';
   videoCanvas.style.left = '0';
   videoCanvas.style.zIndex = '-1';
-  videoCanvas.style.display = 'none'; // Add this line to hide the videoCanvas
-  document.body.appendChild(videoCanvas);
+  videoCanvas.style.display = 'none'; // Keep the canvas hidden
   return videoCanvas;
 }
 
@@ -122,6 +122,10 @@ function runTrialWithProbes(videoId, canvasId) {
   const video = document.getElementById(videoId);
   const canvas = document.getElementById(canvasId);
   const ctx = canvas.getContext('2d');
+  const videoCanvas = createVideoCanvas();
+  const existingVideoCanvas = document.getElementById('video-canvas');
+  existingVideoCanvas.parentNode.replaceChild(videoCanvas, existingVideoCanvas);
+
   let probeVisible = false;
   let probeTimeout;
 
@@ -231,10 +235,13 @@ function handleKeyPress(e) {
 }
 
 
+const showProbeOnPlay = () => {
+  setTimeout(showProbe, 2500);
+};  
+video.removeEventListener('play', showProbeOnPlay);
 
-video.addEventListener('play', () => {
-setTimeout(showProbe, 2500);
-});
+video.addEventListener('play', showProbeOnPlay, { once: config.once });
+
 
 video.addEventListener('ended', () => {
 clearCanvas(ctx);
