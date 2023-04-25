@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Looping Screens</title>
+    <link rel="stylesheet" href="styles_small.css">
+    <script src="probes-shapes-small.js"></script>
+</head>
+<body>
+    <div id="welcome-screen" class="screen">
+        <h1>Welcome To The Experiment!</h1>
+        <p>Please ensure that your speakers are audible before continuing</p>
+        <button id="start-instructions">Start Instructions</button>
+    </div>
+    <div id="instructions-screen" class="screen hidden">
+        <center>
+        <h1>Instructions</h1>
+        <p>On the following screens you will be presented with a series of videos which have small objects that appear throughout. If you see a small square, press F. If you see a small triangle, press J. Do so as soon as you see either shape.</p>
+        <p>After each video, you will be asked a question about the content.</p>
+        <button id="start-trials">Start Trials</button>
+        </center>
+    </div>
+    <div id="video-screen" class="screen hidden">
+
+        <div id="video-wrapper">
+            <video id="video" muted></video>
+            <canvas id="canvas"></canvas>
+            <canvas id="video-canvas" style="display:none;"></canvas>
+        </div>
+
+        <div id="stats">
+            <p2 id="last-reaction-time"></p2>
+            <p2 id="last-keypress-correct"></p2>
+        </div>
+
+    </div>
+      
+    <div id="input-screen" class="screen hidden">
+
+        <center>
+            <p id="text"></p>
+        
+            <p2> Press F for YES or press J for NO / UNSURE</p2>
+        </center>
+        
+        <div>        
+        <progress id="progress" max="18" value="0" class="hidden"></progress>
+        </div>
+
+    </div>
+    <script src="script_small_random.js"></script>
+</body>
+</html> 
