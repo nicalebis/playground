@@ -86,6 +86,8 @@ function runTrialWithProbes(videoId, canvasId, config = {}) {
   const canvas = document.getElementById(canvasId);
   const ctx = canvas.getContext('2d');
   const videoCanvas = createVideoCanvas();
+  const existingVideoCanvas = document.getElementById('video-canvas');
+  existingVideoCanvas.parentNode.replaceChild(videoCanvas, existingVideoCanvas);
   let probeVisible = false;
   let probeTimeout;
 
