@@ -105,6 +105,17 @@ function updateProbeColor(videoCanvas, x, y) {
   return getContrastingColor(r, g, b);
 }
 
+function createVideoCanvas() {
+  const videoCanvas = document.createElement('canvas');
+  videoCanvas.style.position = 'absolute';
+  videoCanvas.style.top = '0';
+  videoCanvas.style.left = '0';
+  videoCanvas.style.zIndex = '-1';
+  videoCanvas.style.display = 'none'; // Add this line to hide the videoCanvas
+  document.body.appendChild(videoCanvas);
+  return videoCanvas;
+}
+
 let isVideoScreenVisible = false;
 
 function runTrialWithProbes(videoId, canvasId) {
@@ -150,6 +161,12 @@ function runTrialWithProbes(videoId, canvasId) {
 
     probeTimeout = setTimeout(showProbe, delay);
 
+    probeDisappearTimeout = setTimeout(() => {
+      if (probeVisible) {
+        hideProbeAndScheduleNext();
+      }
+    }, 4000);
+
     probeVisible = true;
   }
 
@@ -166,6 +183,10 @@ const delay = Math.max(0, Math.round(gaussianRandom(meanDelay, sdDelay)));
 // clear the previous timeout if it exists
 if (probeTimeout) {
   clearTimeout(probeTimeout);
+}
+
+if (probeDisappearTimeout) {
+  clearTimeout(probeDisappearTimeout);
 }
 
 probeTimeout = setTimeout(showProbe, delay);
@@ -199,6 +220,10 @@ function handleKeyPress(e) {
     // clear the previous timeout if it exists
     if (probeTimeout) {
       clearTimeout(probeTimeout);
+    }
+
+    if (probeDisappearTimeout) {
+      clearTimeout(probeDisappearTimeout);
     }
 
     hideProbeAndScheduleNext();
