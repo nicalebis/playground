@@ -1,4 +1,4 @@
-const probeSize = 10;
+const probeSize = 12;
 
 function getRandom(min, max) {
   return Math.random() * (max - min) + min;
