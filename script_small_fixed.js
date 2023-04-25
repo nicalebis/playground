@@ -40,10 +40,6 @@ const videos = [
 	'Did the previous video show an apple?'	
   ];
 
-  
-function startProbes() {
-  runTrialWithProbes('video', 'canvas');
-}
 
 let currentVideoIndex = 0;
 
@@ -54,8 +50,18 @@ function resizeWrapper() {
   // Set canvas dimensions to match the video dimensions
   canvas.width = video.videoWidth/2; // set the canvas width to half of its original width
   canvas.height = video.videoHeight/2; // set the canvas height to half of its original height
+  
 }
 
+function handleInputScreenKeyPress(e) {
+  if (!isInputScreenVisible) return;
+  if (e.key === 'f' || e.key === 'j') {
+    // Start the next trial
+    inputScreen.classList.add('hidden');
+    videoScreen.classList.remove('hidden');
+    nextVideo();
+  }
+}
 
 function loadVideo(index) {
     video.removeEventListener('ended', videoEndedHandler); // Remove the old event listener
@@ -102,8 +108,6 @@ function nextVideo() {
   
     // Increment the currentVideoIndex, if it reaches the end of the array, reset it to 0
     currentVideoIndex = (currentVideoIndex + 1) % videos.length;
-  
-    video.addEventListener('playing', startProbes, { once: true });
 
     inputScreen.classList.add('hidden');
   videoScreen.classList.remove('hidden');
@@ -127,12 +131,3 @@ startTrialsButton.addEventListener('click', () => {
 
 let isInputScreenVisible = false;
 
-function handleInputScreenKeyPress(e) {
-    if (!isInputScreenVisible) return;
-    if (e.key === 'f' || e.key === 'j') {
-      // Start the next trial
-      inputScreen.classList.add('hidden');
-      videoScreen.classList.remove('hidden');
-      nextVideo();
-    }
-  }
