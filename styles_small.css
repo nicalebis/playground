@@ -95,6 +95,8 @@ canvas {
     align-items: center;
     position: relative;
     overflow: hidden;
+    width: 25%;
+    height: 25%;
 }
 
 .slider-container {
