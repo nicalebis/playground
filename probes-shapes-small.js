@@ -253,4 +253,3 @@ document.addEventListener('keydown', handleKeyPress);
 }
 
 window.runTrialWithProbes = runTrialWithProbes;
-
