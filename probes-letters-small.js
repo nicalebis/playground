@@ -5,7 +5,8 @@ function getRandom(min, max) {
 }
 
 function getContrastingColor(r, g, b) {
-  return `rgb(${255 - r}, ${255 - g}, ${255 - b})`;
+  const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
+  return luminance > 128 ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)';
 }
 
 function drawProbe(ctx, size, x, y, shape, probeColor) {
@@ -202,3 +203,4 @@ document.addEventListener('keydown', handleKeyPress);
 }
 
 window.runTrialWithProbes = runTrialWithProbes;
+
