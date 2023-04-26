@@ -16,42 +16,6 @@ function drawProbe(ctx, size, x, y, shape, probeColor) {
   ctx.stroke();
 
   ctx.fillStyle = probeColor;
-  ctx.beginPath();
-
-  if (shape === 'square') {
-    ctx.fillRect(x - size / 2, y - size / 2, size, size);
-  } else if (shape === 'triangle') {
-    ctx.moveTo(x - size / 2, y + size / 2);
-    ctx.lineTo(x + size / 2, y + size / 2);
-    ctx.lineTo(x, y - size / 2);
-    ctx.closePath();
-  }
-
-  ctx.fill();
-}
-
-function updateProbeColor(ctx, x, y, size, shape) {
-  const bgData = ctx.getImageData(x - 6, y - 6, 12, 12);
-  const data = bgData.data;
-  let r = 0;
-  let g = 0;
-  let b = 0;
-  let count = 0;
-
-  for (let i = 0; i < data.length; i += 4) {
-    r += data[i];
-    g += data[i + 1];
-    b += data[i + 2];
-    count++;
-  }
-
-  r /= count;
-  g /= count;
-  b /= count;
-
-  const probeColor = getContrastingColor(r, g, b);
-
-  ctx.fillStyle = probeColor;
   if (shape === 'square') {
     ctx.fillRect(x - size / 2, y - size / 2, size, size);
   } else if (shape === 'triangle') {
@@ -107,27 +71,28 @@ function updateProbeColor(videoCanvas, x, y) {
 
 function createVideoCanvas() {
   const videoCanvas = document.createElement('canvas');
-  videoCanvas.id = 'video-canvas'; // Set the ID
   videoCanvas.style.position = 'absolute';
   videoCanvas.style.top = '0';
   videoCanvas.style.left = '0';
   videoCanvas.style.zIndex = '-1';
-  videoCanvas.style.display = 'none'; // Keep the canvas hidden
+  videoCanvas.style.display = 'none'; // Add this line to hide the videoCanvas
+  document.body.appendChild(videoCanvas);
   return videoCanvas;
 }
 
 let isVideoScreenVisible = false;
 
-function runTrialWithProbes(videoId, canvasId) {
+function runTrialWithProbes(videoId, canvasId, config = {}) {
   const video = document.getElementById(videoId);
   const canvas = document.getElementById(canvasId);
   const ctx = canvas.getContext('2d');
   const videoCanvas = createVideoCanvas();
   const existingVideoCanvas = document.getElementById('video-canvas');
   existingVideoCanvas.parentNode.replaceChild(videoCanvas, existingVideoCanvas);
-
   let probeVisible = false;
   let probeTimeout;
+
+  let lastKeyPressTime = null;
 
   let lastProbeTime;
   let lastProbeShape;
@@ -253,3 +218,4 @@ document.addEventListener('keydown', handleKeyPress);
 }
 
 window.runTrialWithProbes = runTrialWithProbes;
+
