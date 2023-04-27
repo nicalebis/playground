@@ -50,7 +50,6 @@ function resizeWrapper() {
   // Set canvas dimensions to match the video dimensions
   canvas.width = video.videoWidth/2; // set the canvas width to half of its original width
   canvas.height = video.videoHeight/2; // set the canvas height to half of its original height
-  
 }
 
 function handleInputScreenKeyPress(e) {
@@ -83,7 +82,7 @@ function loadVideo(index) {
   
     isVideoScreenVisible = true;
   
-    video.addEventListener('ended', videoEndedHandler); // Add the new event listener
+    video.addEventListener('ended', videoEndedHandler, {once:true}); // Add the new event listener
   }
 
 function videoEndedHandler() {
