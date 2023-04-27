@@ -14,30 +14,45 @@ let probeInterval;
 const PROBE_INTERVAL_MS = 100;
 
 const videos = [
-    'videos/P1E.mp4', 'videos/P1U.mp4', 'videos/P2E.mp4', 'videos/P2U.mp4', 'videos/P3E.mp4', 'videos/P3U.mp4', 
-    'videos/P4E.mp4', 'videos/P4U.mp4', 'videos/S1E.mp4', 'videos/S1U.mp4', 'videos/S2E.mp4', 'videos/S2U.mp4', 
-    'videos/S3E.mp4', 'videos/S3U.mp4', 'videos/S4E.mp4', 'videos/S4U.mp4', 'videos/S5E.mp4', 'videos/S5U.mp4'
+    'videos/P1E.mp4',  // 1
+    'videos/S5U.mp4',  // 18
+    'videos/P4E.mp4',  // 7
+    'videos/S3E.mp4',  // 13
+    'videos/P2U.mp4',  // 4
+    'videos/S4U.mp4',   // 16
+    'videos/S1E.mp4',  // 9
+    'videos/P1U.mp4',  // 2
+    'videos/S4E.mp4',  // 15
+    'videos/P2E.mp4',  // 3
+    'videos/S3U.mp4',  // 14
+    'videos/P3E.mp4',  // 5
+    'videos/S2E.mp4',  // 11
+    'videos/S1U.mp4',  // 10
+    'videos/P4U.mp4',  // 8
+    'videos/S5E.mp4',  // 17
+    'videos/P3U.mp4',  // 6
+    'videos/S2U.mp4'  // 12
   ];
   
   const texts = [
-  'Did the previous video show a toy ball?', 
-	'Did the previous video show a red rectangle?', 
-	'Did the previous video show a train?', 
-	'Did the previous video show an arm wearing a watch?', 
-	'Did the previous video show a red box?', 
-	'Did the previous video show a toy train?', 
-    'Did the previous video show a striped object?', 
-	'Did the previous video show a blue box?', 
-	'Did the previous video show a lion?', 
-	'Did the previous video show strawberries?',
-	'Did the previous video show a person with a logo on their shirt?', 
-	'Did the previous video show a clear pitcher of water?',
-	'Did the previous video show a toy ball?', 
-	'Did the previous video show a toy train?',
-	'Did the previous video show a person wearing red?', 
-	'Did the previous video show a person eating?',
-	'Did the previous video show a person eating?', 
-	'Did the previous video show an apple?'	
+  'Did the previous video show a toy ball?',  // 1
+  'Did the previous video show an apple?',	 // 18
+  'Did the previous video show a striped object?',  // 7
+  'Did the previous video show a toy ball?',  // 13
+  'Did the previous video show an arm wearing a watch?',  // 4
+  'Did the previous video show a person eating?', // 16
+  'Did the previous video show a lion?',  // 9
+	'Did the previous video show a red rectangle?',  // 2
+  'Did the previous video show a person wearing red?',  // 15
+	'Did the previous video show a train?',  // 3
+	'Did the previous video show a toy train?', // 14
+	'Did the previous video show a red box?',  // 5
+	'Did the previous video show a person with a logo on their shirt?',  // 11
+  'Did the previous video show strawberries?', // 10
+	'Did the previous video show a blue box?',  // 8
+  'Did the previous video show a person eating?',  // 17
+	'Did the previous video show a toy train?',  // 6
+	'Did the previous video show a clear pitcher of water?' // 12
   ];
 
 
