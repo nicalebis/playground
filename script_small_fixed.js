@@ -70,10 +70,18 @@ function resizeWrapper() {
 function handleInputScreenKeyPress(e) {
   if (!isInputScreenVisible) return;
   if (e.key === 'f' || e.key === 'j') {
-    // Start the next trial
-    inputScreen.classList.add('hidden');
-    videoScreen.classList.remove('hidden');
-    nextVideo();
+    // Disable keypress event to avoid triggering multiple times during the delay
+    document.removeEventListener('keydown', handleInputScreenKeyPress);
+
+    // Start the next trial after a 1-second delay
+    setTimeout(() => {
+      inputScreen.classList.add('hidden');
+      videoScreen.classList.remove('hidden');
+      nextVideo();
+
+      // Re-enable keypress event after the delay
+      document.addEventListener('keydown', handleInputScreenKeyPress);
+    }, 1000);
   }
 }
 
