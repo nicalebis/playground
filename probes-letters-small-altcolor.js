@@ -1,4 +1,5 @@
-const probeSize = 10;
+const probeSize = 12;
+const results = [];
 
 function getRandom(min, max) {
   return Math.random() * (max - min) + min;
@@ -35,7 +36,6 @@ function drawProbe(ctx, size, x, y, shape, probeColor) {
     videoCtx.drawImage(video, 0, 0, videoCanvas.width, videoCanvas.height);
   }
 
-
 function gaussianRandom(mean, sd) {
   const u = Math.random();
   const v = Math.random();
@@ -65,6 +65,47 @@ function createVideoCanvas() {
   
     return `rgb(${r}, ${g}, ${b})`;
   }
+  
+
+  // Add this function to create a CSV file and download the results
+  function downloadResults(results) {
+    const header = [
+      'video_id',
+      'keypress',
+      'reaction_time',
+      'probe_shape',
+      'probe_x',
+      'probe_y',
+      'time_within_video', // Add this line to the header
+    ];
+    const csvContent =
+      header.join(',') +
+      '\n' +
+      results
+        .map((result) =>
+          [
+            result.video_id,
+            result.keyPressed,
+            result.rt,
+            result.probe_shape,
+            result.x,
+            result.y,
+            result.time_within_video, // Add this line when mapping the results
+          ].join(',')
+        )
+        .join('\n');
+  
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'results.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
 
 let isVideoScreenVisible = false;
 
@@ -82,7 +123,6 @@ function runTrialWithProbes(videoId, canvasId, config = {}) {
   let lastProbeShape;
   let lastProbeX;
   let lastProbeY;
-  const results = [];
 
   function showProbe() {
     if (probeVisible || !isVideoScreenVisible) return;
@@ -154,32 +194,44 @@ function handleKeyPress(e) {
       const currentTime = video.currentTime;
       const rt = currentTime - lastProbeTime;
       const keyPressed = e.key;
-      const isCorrect = (keyPressed === 'f' && lastProbeShape === 'F') || (keyPressed === 'j' && lastProbeShape === 'J');
-
+      const isCorrect =
+        (keyPressed === 'f' && lastProbeShape === 'F') ||
+        (keyPressed === 'j' && lastProbeShape === 'J');
+  
       lastKeyPressTime = Date.now();
-
-    results.push({
-      rt: rt,
-      x: lastProbeX,
-      y: lastProbeY,
-      keyPressed: keyPressed,
-      correct: isCorrect,
-    });
-
-    // Display the last reaction time and whether the last keypress was correct
-    document.getElementById("last-reaction-time").textContent = `Last Reaction Time: ${rt.toFixed(3)} seconds`;
-    document.getElementById("last-keypress-correct").textContent = `Last Keypress Correct: ${isCorrect ? "Yes" : "No"}`;
-
-    console.log(results);
-
-    // clear the previous timeout if it exists
-    if (probeTimeout) {
-      clearTimeout(probeTimeout);
+  
+      results.push({
+        video_id: currentVideoIndex,
+        rt: rt,
+        x: lastProbeX,
+        y: lastProbeY,
+        keyPressed: keyPressed,
+        probe_shape: lastProbeShape,
+        correct: isCorrect,
+        time_within_video: currentTime, // Add this line to include the time within video
+      });
+  
+      // Display the last reaction time and whether the last keypress was correct
+      document.getElementById(
+        'last-reaction-time'
+      ).textContent = `Last Reaction Time: ${rt.toFixed(3)} seconds`;
+      document.getElementById(
+        'last-keypress-correct'
+      ).textContent = `Last Keypress Correct: ${
+        isCorrect ? 'Yes' : 'No'
+      }`;
+  
+      console.log(results);
+  
+      // clear the previous timeout if it exists
+      if (probeTimeout) {
+        clearTimeout(probeTimeout);
+      }
+  
+      hideProbeAndScheduleNext();
     }
-
-    hideProbeAndScheduleNext();
   }
-}
+  
 
 const showProbeOnPlay = () => {
     setTimeout(showProbe, 2500);
@@ -193,11 +245,20 @@ video.addEventListener('ended', () => {
 clearCanvas(ctx);
 probeVisible = false;
 document.removeEventListener('keydown', handleKeyPress);
+if (probeTimeout) {
+    clearTimeout(probeTimeout);
+  }
 });
 
 
 document.addEventListener('keydown', handleKeyPress);
 }
 
+document.addEventListener("keydown", (e) => {
+    if (e.key === "7") {
+      downloadResults(results);
+    }
+  });
+  
 window.runTrialWithProbes = runTrialWithProbes;
 
