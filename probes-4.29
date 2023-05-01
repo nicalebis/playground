@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Attention Task</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- Welcome Screen -->
+<div id="welcome-screen" class="screen">
+    <h1>Welcome To The Experiment!</h1>
+    <p>Please ensure that your sound is audible before continuing</p>
+    <p id="welcome-continue" class="continue hidden">Press the spacebar to continue.</p>
+</div>
+
+<!-- Instructions Screen -->
+<div id="instructions-screen-1" class="screen hidden">
+    <center>
+    <h1>Instructions</h1>
+    <p>On the following screens you will be presented with a series of videos which have small objects that appear throughout. If you see a small square, press F. If you see a small triangle, press J. Do so as soon as you see either shape.</p>
+    <p>After each video, you will be asked a question about the content.</p>
+    <p id="instructions-continue" class="continue hidden">Press the spacebar to continue.</p>
+    </center>
+    
+</div>
+
+<!-- Warmup Screen -->
+<div id="warmup-screen" class="screen hidden">
+    <h1>Warmup</h1>
+    <video id="warmup-video"></video>
+    <p id="warmup-continue" class="continue">Press the spacebar to continue.</p>
+</div>
+
+<div id="instructions-screen-2" class="screen hidden">
+    <center>
+    <h1>Instructions</h1>
+    <p>On the following screens you will be presented with a series of videos which have small objects that appear throughout. If you see a small square, press F. If you see a small triangle, press J. Do so as soon as you see either shape.</p>
+    <p>After each video, you will be asked a question about the content.</p>
+    <p id="instructions-continue" class="continue">Press the spacebar to continue.</p>
+    </center>
+    
+</div>
+
+<div id="main-trials" class="screen hidden">>
+    <!-- Attention Screen -->
+    <!-- video player always plays same attention video-->
+    <div id="attention-screen" class="screen hidden">>
+        <video id="attention-video"></video>
+    </div>
+    <!-- Video Screen -->
+    <!-- Video center on screen - width always 960px-->
+    <!-- Canvas centered with video - resized to match current video size-->
+    <div id="video-screen" class="screen hidden">>
+        <div id="video-wrapper">
+            <video id="video" muted></video>
+            <canvas id="video-canvas" class="canvas-hidden"></canvas>
+            <canvas id="probes-canvas"></canvas>
+        </div>
+    </div>    
+    <!-- Text Screen -->
+    <!-- Text pulled from text array -->
+    <!-- Keypress instructions - same on all text screens -->
+    <!-- Press Space to Continue -->
+    <div id="prompt-screen" class="screen hidden">>
+        <p id="prompt"></p>
+        <p id="prompt-instructions">Press F for <span id="yes">YES</span> or J for <span id="no">NO</span></p>
+        <p id="prompt-continue" class="continue hidden">Press the spacebar to continue.</p>
+    </div>
+</div>
+
+<!-- Debrief Screen -->
+<div id="debrief-screen" class="screen hidden">
+    <h1>Thank you for participating!</h1>
+    <p>Press the spacebar to continue.</p>
+</div>
+
+<script>
+
+
+// trial constants
+let trialNumber = 0;
+let trialData = [];
+let promptData = [];
+let resultsData = [];
+
+// video constants
+const warmupVideo = document.getElementById('warmup-video');
+const attentionVideo = document.getElementById('attention-video');
+const trialVideo = document.getElementById('video');
+const prompt = document.getElementById('prompt');
+
+// Set initial Screen visibilities
+let welcomeScreenVisible = true;
+let instructionsScreen1Visible = false;
+let warmupScreenVisible = false;
+let instructionsScreen2Visible = false;
+let mainTrialsVisible = false;
+let attentionScreenVisible = false;
+let videoScreenVisible = false;
+let promptScreenVisible = false;
+let debriefScreenVisible = false;
+
+//////////////////////////////
+//// INSTRUCTIONS SCREENS ////
+//////////////////////////////
+
+
+
+/// Welcome Screen ///
+
+function welcomeScreenKeyPress(e) {
+    if (!welcomeScreenVisible) return;
+    if (e.keyCode == 32) {
+        // change screens
+        document.getElementById('welcome-screen').classList.add('hidden');
+        welcomeScreenVisible = false;
+        document.getElementById('instructions-screen').classList.remove('hidden');
+        instructionsScreen1Visible = true;
+
+        // remove event addEventListener
+        document.removeEventListener('keydown', welcomeScreenKeyPress);
+
+        // run function randomizeVideosAndTexts one time
+        randomizeVideosAndTexts();
+    }
+}
+
+document.addEventListener('keydown', welcomeScreenKeyPress);
+
+
+
+/// Instructions 1 Screen ///
+
+function instructionsScreen1KeyPress(e) {
+    if (!instructionsScreen1Visible) return;
+    if (e.keyCode == 32) {
+        // change screens
+        document.getElementById('instructions-screen-1').classList.add('hidden');
+        instructionsScreen1Visible = false;
+        document.getElementById('warmup-screen').classList.remove('hidden');
+        warmupScreenVisible = true;
+
+        // remove event addEventListener
+        document.removeEventListener('keydown', instructionsScreen1KeyPress);
+
+        // load warmup video
+        document.getElementById('warmup-video').src = 'videos/warmup.mp4';
+    }
+}
+
+document.addEventListener('keydown', instructionsScreen1KeyPress);
+
+/// Warmup Screen ///
+
+function warmupScreenKeyPress(e) {
+    if (!warmupScreenVisible) return;
+    if (e.keyCode == 32) {
+        // change screens
+        document.getElementById('warmup-screen').classList.add('hidden');
+        warmupScreenVisible = false;
+        document.getElementById('instructions-screen-2').classList.remove('hidden');
+        instructionsScreen2Visible = true;
+
+        // remove event addEventListener
+        document.removeEventListener('keydown', warmupScreenKeyPress);
+    }
+}
+
+document.addEventListener('keydown', warmupScreenKeyPress);
+
+
+
+/// Instructions 2 Screen ///
+
+function instructionsScreen2KeyPress(e) {
+    if (!instructionsScreen2Visible) return;
+    if (e.keyCode == 32) {
+        // change screens
+        document.getElementById('instructions-screen-2').classList.add('hidden');
+        instructionsScreen2Visible = false;
+        document.getElementById('main-trials').classList.remove('hidden');
+        mainTrialsVisible = true;
+        attentionScreenVisible = true;
+
+        // remove event addEventListener
+        document.removeEventListener('keydown', instructionsScreen2KeyPress);
+
+        // add attention event listener
+        attentionVideo.addEventListener('ended', AttentionVideoEnded);
+
+        // load first trial video and text
+        trialVideo.src =videosAndTexts[trialNumber].video;
+        prompt.innerText = videosAndTexts[trialNumber].text;
+        resizeWrapper();
+    }
+}
+
+document.addEventListener('keydown', instructionsScreen2KeyPress);
+
+
+
+///////////////////////////////
+///// MAIN TRIALS SCREENS /////
+///////////////////////////////
+
+function AttentionVideoEnded () {
+    if (!attentionScreenVisible) return;
+    document.getElementById('attention-screen').classList.add('hidden');
+    attentionScreenVisible = false;
+    document.getElementById('video-screen').classList.remove('hidden');
+    videoScreenVisible = true;
+    trialVideo.play();
+    trialVideo.muted = false;
+
+    // remove event addEventListener
+    document.removeEventListener('keydown', AttentionVideoEnded);
+
+    // add event addEventListener
+    document.addEventListener('keydown', videoScreenKeyPress);
+    trialVideo.addEventListener('ended', onTrialVideoEnded);
+}
+
+//////////////////////////////
+///// PROBE VIDEO SCREEN /////
+//////////////////////////////
+
+
+
+// on video play, start probe functions
+
+trialVideo.addEventListener('play', () => {
+    drawLetterProbe();
+});
+
+
+
+/// RT Input ///
+
+function videoScreenKeyPress(e) {
+// If F or J pressed, run hideLetterProbe function
+if (!videoScreenVisible) return;
+if (e.keyCode == 70 || e.keyCode == 74) {
+    keyPressTime = video.currentTime;
+    reactionTime = keyPressTime - lastProbeTime;
+    keyPressed = e.keyCode;
+    correct = keyPressed == 70 && lastProbeShape == 'F' || keyPressed == 74 && lastProbeShape == 'J';
+    if (correct) {
+        probeCtx.fillStyle = 'green';
+        probeCtx.font = `${probeSize}px Arial`;
+        probeCtx.textAlign = 'center';
+        probeCtx.fillText(lastProbeShape, lastProbeX, lastProbeY);
+        setTimeout(hideLetterProbe, 50);
+    } else {
+        probeCtx.fillStyle = 'red';
+        probeCtx.font = `${probeSize}px Arial`;
+        probeCtx.textAlign = 'center';
+        probeCtx.fillText(lastProbeShape, lastProbeX, lastProbeY);
+        setTimeout(hideLetterProbe, 50);
+    }
+    trialData.push ({
+        trialNumber: trialNumber,
+        screenType: 'probes_video',
+        videoName: trialVideo.src,
+        probeStartTime: lastProbeTime,
+        probeLocation: lastProbeX, lastProbeY,
+        userInput: keyPressed,
+        userInputTime: keyPressTime,
+        reactionTime: reactionTime,
+        correct: correct
+    });
+    }
+}
+
+
+
+/// Video End ///
+
+function onTrialVideoEnded () {  
+    if (!videoScreenVisible) return;  
+    // clear canvases
+    probeCtx.clearRect(0, 0, probeCanvas.width, probeCanvas.height);
+    videoCtx.clearRect(0, 0, videoCanvas.width, videoCanvas.height);
+
+    // clear any timeouts
+    clearTimeout(drawLetterProbe);
+    clearTimeout(hideLetterProbe);
+
+    // collect data
+    resultsData.push (...trialData);
+    // q: How to push trialData to resultsData without creating an array of arrays?
+    // a: resultsData.push(...trialData);
+    // q: what does this do specifically?
+    // a: it spreads the array into individual elements and pushes them to the resultsData array
+
+    // change screens
+    document.getElementById('video-screen').classList.add('hidden');
+    videoScreenVisible = false;
+    document.getElementById('prompt-screen').classList.remove('hidden');
+    promptScreenVisible = true;
+
+    // remove event addEventListener
+    document.removeEventListener('keydown', videoScreenKeyPress);
+    trialVideo.removeEventListener('ended', onTrialVideoEnded);
+
+    // add event addEventListener
+    document.addEventListener('keydown', promptScreenKeyPress);
+}
+
+
+
+/////////////////////////
+///// PROMPT SCREEN /////
+/////////////////////////
+
+function promptScreenKeyPress(e) {
+    if (!promptScreenVisible) return;
+    let promptResponse = false;
+    if (e.keyCode == 70) {
+        document.getElementById('yes').classList.add('bold');
+        document.getElementById('no').classList.remove('bold');
+        promptResponse = true;
+    }
+    if (e.keyCode == 74) {
+        document.getElementById('no').classList.add('bold');
+        document.getElementById('yes').classList.remove('bold');
+        promptResponse = true;
+    }
+    // if no F or J response, do not accept spacebar press
+    if (!promptResponse) return;
+    // spacebar press
+    if (e.keyCode == 32) {
+
+        // record data
+        promptData.push ({
+            trialNumber: trialNumber,
+            screenType: 'prompt',
+            videoName: trialVideo.src,
+            promptText: prompt.innerText,
+            promptResponse: e.keyCode == 70 ? 'yes' : 'no',
+        });
+        resultsData.push (...promptData);
+
+        // change screens
+        if (trialNumber == 17) {
+            // change screens to debrief
+            document.getElementById('prompt-screen').classList.add('hidden');
+            promptScreenVisible = false;
+            document.getElementById('debrief-screen').classList.remove('hidden');
+            debriefScreenVisible = true;
+
+            // remove event addEventListener
+            document.removeEventListener('keydown', promptScreenKeyPress);
+
+        } else {
+            // change screens to next trial
+            document.getElementById('prompt-screen').classList.add('hidden');
+            promptScreenVisible = false;
+            document.getElementById('attention-screen').classList.remove('hidden');
+            attentionScreenVisible = true;
+
+            // increase trial number and load next video and text
+            trialNumber++;
+            trialVideo.src =videosAndTexts[trialNumber].video;
+            prompt.innerText = videosAndTexts[trialNumber].text;
+            resizeWrapper();
+
+            // remove event addEventListener
+            document.removeEventListener('keydown', promptScreenKeyPress);
+        }
+    }
+}
+
+/////////////////////////////////
+///// VIDEO AND TEXT ARRAYS /////
+/////////////////////////////////
+
+// Video array
+   const videos = [
+    'videos/P1E.mp4','videos/S5U.mp4','videos/P4E.mp4',
+    'videos/S3E.mp4','videos/P2U.mp4','videos/S4U.mp4',
+    'videos/S1E.mp4','videos/P1U.mp4','videos/S4E.mp4', 
+    'videos/P2E.mp4','videos/S3U.mp4','videos/P3E.mp4',  
+    'videos/S2E.mp4','videos/S1U.mp4','videos/P4U.mp4',
+    'videos/S5E.mp4','videos/P3U.mp4','videos/S2U.mp4'
+    ];
+
+// Text array
+const texts = [
+    'Did the previous video show a toy ball?',  
+    'Did the previous video show an apple?',	 
+    'Did the previous video show a striped object?',  
+    'Did the previous video show a toy ball?',  
+    'Did the previous video show an arm wearing a watch?',
+    'Did the previous video show a person eating?',
+    'Did the previous video show a lion?',
+    'Did the previous video show a red rectangle?',
+    'Did the previous video show a person wearing red?',
+    'Did the previous video show a train?',
+    'Did the previous video show a toy train?',
+    'Did the previous video show a red box?',
+    'Did the previous video show a person with a logo on their shirt?',
+    'Did the previous video show strawberries?',
+    'Did the previous video show a blue box?',
+    'Did the previous video show a person eating?',
+    'Did the previous video show a toy train?',
+    'Did the previous video show a clear pitcher of water?'
+];
+
+function randomizeVideosAndTexts() {
+    // create array of objects with video and text names paired by index
+    const videosAndTexts = [];
+    for (let i = 0; i < videos.length; i++) {
+        videosAndTexts.push({ video: videos[i], text: texts[i] });
+    }
+    // shuffle array
+    for (let i = videosAndTexts.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [videosAndTexts[i], videosAndTexts[j]] = [videosAndTexts[j], videosAndTexts[i]];
+    }
+    // check for repeats
+    for (let i = 0; i < videosAndTexts.length - 2; i++) {
+        const currentVideo = videosAndTexts[i].video;
+        const nextVideo = videosAndTexts[i + 1].video;
+        const nextNextVideo = videosAndTexts[i + 2].video;
+        const currentText = videosAndTexts[i].text;
+        const nextText = videosAndTexts[i + 1].text;
+        const nextNextText = videosAndTexts[i + 2].text;
+        if (currentVideo.includes('P') && nextVideo.includes('P') && nextNextVideo.includes('P')) {
+            videosAndTexts[i + 2] = videosAndTexts[i + 1];
+            videosAndTexts[i + 1] = videosAndTexts[i];
+            videosAndTexts[i] = { video: nextNextVideo, text: nextNextText };
+        }
+        if (currentVideo.includes('S') && nextVideo.includes('S') && nextNextVideo.includes('S')) {
+            videosAndTexts[i + 2] = videosAndTexts[i + 1];
+            videosAndTexts[i + 1] = videosAndTexts[i];
+            videosAndTexts[i] = { video: nextNextVideo, text: nextNextText };
+        }
+        if (currentVideo.includes('1') && nextVideo.includes('1') && nextNextVideo.includes('1')) {
+            videosAndTexts[i + 2] = videosAndTexts[i + 1];
+            videosAndTexts[i + 1] = videosAndTexts[i];
+            videosAndTexts
+            [i] = { video: nextNextVideo, text: nextNextText };
+        }
+        if (currentVideo.includes('2') && nextVideo.includes('2') && nextNextVideo.includes('2')) {
+            videosAndTexts[i + 2] = videosAndTexts[i + 1];
+            videosAndTexts[i + 1] = videosAndTexts[i];
+            videosAndTexts[i] = { video: nextNextVideo, text: nextNextText };
+        }
+        if (currentVideo.includes('3') && nextVideo.includes('3') && nextNextVideo.includes('3')) {
+            videosAndTexts[i + 2] = videosAndTexts[i + 1];
+            videosAndTexts[i + 1] = videosAndTexts[i];
+            videosAndTexts[i] = { video: nextNextVideo, text: nextNextText };
+        }
+        if (currentVideo.includes('4') && nextVideo.includes('4') && nextNextVideo.includes('4')) {
+            videosAndTexts[i + 2] = videosAndTexts[i + 1];
+            videosAndTexts[i + 1] = videosAndTexts[i];
+            videosAndTexts[i] = { video: nextNextVideo, text: nextNextText };
+        }
+        if (currentVideo.includes('5') && nextVideo.includes('5') && nextNextVideo.includes('5')) {
+            videosAndTexts[i + 2] = videosAndTexts[i + 1];
+            videosAndTexts[i + 1] = videosAndTexts[i];
+            videosAndTexts[i] = { video: nextNextVideo, text: nextNextText };
+        }
+    }
+}
+
+function resizeWrapper() {
+  const videoWrapper = document.getElementById('video-wrapper');
+    videoWrapper.style.width = `${video.videoWidth/2}px`;
+    videoWrapper.style.height = `${video.videoHeight/2}px`;
+    probeCanvas.width = video.videoWidth/2;
+    probeCanvas.height = video.videoHeight/2;
+    videoCanvas.width = video.videoWidth/2;
+    videoCanvas.height = video.videoHeight/2;
+}
+
+
+/////////////////////////////
+///// CANVAS AND PROBES /////
+/////////////////////////////
+
+// video canvas constants
+const videoCanvas = document.getElementById('videoCanvas');
+const videoCtx = videoCanvas.getContext('2d');
+
+// probe constants
+const probeCanvas = document.getElementById('dotProbeCanvas');
+const probeCtx = canvas.getContext('2d');
+const probeSize = 10;
+
+
+
+//////////////////////////
+//// PROBE GENERATION ////
+//////////////////////////
+
+// random probe location
+function generateProbeLocation() {
+  const x = Math.floor(Math.random() * (videoCanvas.width - probeSize));
+  const y = Math.floor(Math.random() * (videoCanvas.height - probeSize));
+  return { x, y };
+}
+
+// random probe shape
+function generateProbeShape() {
+  const shapes = ['F', 'J'];
+  const probeShape = shapes[Math.floor(Math.random() * shapes.length)];
+  return probeShape;
+}
+
+// generate probe color - probes cycle through all colors with r g b values slowly changing via sin functions
+function generateProbeColor() {
+  const r = Math.floor(Math.sin(Date.now() / 1000) * 127 + 128);
+  const g = Math.floor(Math.sin(Date.now() / 1000 + 2) * 127 + 128);
+  const b = Math.floor(Math.sin(Date.now() / 1000 + 4) * 127 + 128);
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+// function to draw the letter probe
+function drawLetterProbe() {
+    if (!videoScreenVisible) return;
+    // clear canvas
+    probeCtx.clearRect(0, 0, probeCanvas.width, probeCanvas.height);
+    
+    // probe parameters
+    const { x, y } = generateProbeLocation();
+    const probeShape = generateProbeShape();
+    const probeColor = generateProbeColor();
+    
+    // draw probe
+    probeCtx.fillStyle = probeColor;
+    probeCtx.font = `${probeSize}px Arial`;
+    probeCtx.textAlign = 'center';
+    probeCtx.fillText(probeShape, x, y);
+    
+    // record probe parameters
+    lastProbeTime = video.currentTime;
+    lastProbeShape = probeShape;
+    lastProbeX = x;
+    lastProbeY = y;
+
+    // set probe visible to true
+    let probeVisible = true;
+
+    // if no user input for 4s, clear canvas and run drawLetterProbe again
+    setTimeout(drawLetterProbe, 4000);
+}
+
+// function to hide the letter probe and then run drawLetterProbe after a delay pulled from a gaussian (M=1500s, sd=250s)
+function hideLetterProbe() {
+    probeCtx.clearRect(0, 0, probeCanvas.width, probeCanvas.height);
+    setTimeout(drawLetterProbe, gaussian(1500, 250));
+}
+</script>
+</html>
+</html>
