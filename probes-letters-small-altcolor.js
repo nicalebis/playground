@@ -59,12 +59,17 @@ function createVideoCanvas() {
   }
 
   function updateProbeColor(x, y, time) {
-    const r = Math.sin(0.01 * time) * 128 + 128;
-    const g = Math.sin(0.02 * time) * 128 + 128;
-    const b = Math.sin(0.03 * time) * 128 + 128;
+    const r = Math.sin(0.004 * time) * 128 + 128;
+    const g = Math.sin(0.008 * time) * 128 + 128;
+    const b = Math.sin(0.012 * time) * 128 + 128;
   
     return `rgb(${r}, ${g}, ${b})`;
   }
+  // q: how can i make the probe color change slower?
+  // a: change the numbers in the updateProbeColor function
+  // a: which numbers do i change?
+  // a: the numbers that are multiplied by time
+
   
 
   // Add this function to create a CSV file and download the results
@@ -131,8 +136,8 @@ function runTrialWithProbes(videoId, canvasId, config = {}) {
   
     let x, y, shape;
   
-    x = Math.random() * (ctx.canvas.width - 2 * probeSize) + probeSize;
-    y = Math.random() * (ctx.canvas.height - 2 * probeSize) + probeSize;
+    x = (Math.random() * (ctx.canvas.width - (0.2*ctx.canvas.width))) + 0.1*ctx.canvas.width;
+    y = (Math.random() * (ctx.canvas.height - (0.2*ctx.canvas.height))) + 0.1*ctx.canvas.height;
   
     shape = Math.random() < 0.5 ? 'F' : 'J'; // Use F and J as shapes
   
@@ -155,8 +160,8 @@ function runTrialWithProbes(videoId, canvasId, config = {}) {
     lastProbeX = x;
     lastProbeY = y;
   
-    const meanDelay = 1600;
-    const sdDelay = 400;
+    const meanDelay = 2250;
+    const sdDelay = 500;
     const delay = Math.max(0, Math.round(gaussianRandom(meanDelay, sdDelay)));
   
     // clear the previous timeout if it exists
@@ -175,8 +180,8 @@ if (!probeVisible || !isVideoScreenVisible) return;
 clearCanvas(ctx);
 probeVisible = false;
 
-const meanDelay = 1600;
-const sdDelay = 400;
+const meanDelay = 2250;
+const sdDelay = 500;
 const delay = Math.max(0, Math.round(gaussianRandom(meanDelay, sdDelay)));
 
 // clear the previous timeout if it exists
@@ -234,7 +239,7 @@ function handleKeyPress(e) {
   
 
 const showProbeOnPlay = () => {
-    setTimeout(showProbe, 2500);
+    setTimeout(showProbe, 3000);
   };
   
   video.removeEventListener('play', showProbeOnPlay);
