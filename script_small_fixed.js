@@ -69,8 +69,21 @@ function resizeWrapper() {
 
 function handleInputScreenKeyPress(e) {
   if (!isInputScreenVisible) return;
-  if (e.key === 'f' || e.key === 'j') {
-    // Disable keypress event to avoid triggering multiple times during the delay
+  if (e.keyCode == 70) {
+    document.getElementById('yes').style.color = 'blue';
+    document.getElementById('no').style.color = 'black';
+    promptResponse = true;
+    document.getElementById('text-continue').classList.remove('hidden');
+  }
+  if (e.keyCode == 74) {
+    document.getElementById('yes').style.color = 'black';
+    document.getElementById('no').style.color = 'blue';
+    document.getElementById('text-continue').classList.remove('hidden');
+    promptResponse = true;
+  }
+  if (!promptResponse) return;
+    // spacebar press
+    if (e.keyCode == 32) {
     document.removeEventListener('keydown', handleInputScreenKeyPress);
 
     // Start the next trial after a 1-second delay
@@ -81,6 +94,7 @@ function handleInputScreenKeyPress(e) {
 
       // Re-enable keypress event after the delay
       document.addEventListener('keydown', handleInputScreenKeyPress);
+      document.getElementById('text-continue').classList.add('hidden');
     }, 1000);
   }
 }
