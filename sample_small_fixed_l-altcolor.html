@@ -9,9 +9,11 @@
 </head>
 <body>
     <div id="welcome-screen" class="screen">
+        <center>
         <h1>Welcome To The Experiment!</h1>
         <p>Please ensure that your speakers are audible before continuing</p>
         <button id="start-instructions">Start Instructions</button>
+        </center>
     </div>
     <div id="instructions-screen" class="screen hidden">
         <center>
@@ -40,8 +42,9 @@
 
         <center>
             <p id="text"></p>
-        
-            <p2> Press F for YES or press J for NO / UNSURE</p2>
+            <p id="text-instructions">Press F for <span id="yes">YES</span> or J for <span id="no">NO</span></p>
+            <p id="text-continue" class="hidden">Press Spacebar to continue</p>
+
         </center>
         
         <div>        
